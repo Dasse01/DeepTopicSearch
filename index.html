@@ -1908,6 +1908,38 @@ function genFingerprint() {
   if(fpEl) fpEl.textContent = _fpCode;
   if(fpEl2) fpEl2.textContent = _fpCode;
 
+  // ── 자동 인증 확인 (localStorage) ──
+  var savedFp  = localStorage.getItem('_lic_fp');
+  var savedExp = localStorage.getItem('_lic_exp');
+  var savedOk  = localStorage.getItem('_lic_ok');
+
+  if(savedOk === 'Y' && savedFp === _fpCode && savedExp) {
+    var expDate = new Date(savedExp);
+    var today   = new Date(); today.setHours(0,0,0,0);
+    if(expDate >= today) {
+      // 만료 안 됨 → 자동 진입
+      var cachedData = sessionStorage.getItem('_lic_data');
+      if(cachedData) {
+        try {
+          RAW = JSON.parse(cachedData);
+          _dataLoaded = true;
+          document.getElementById('lockScreen').style.display = 'none';
+          setTimeout(function(){ initApp(); }, 100);
+        } catch(e) { localStorage.removeItem('_lic_ok'); }
+      } else {
+        loadDataFromServer(function(){
+          document.getElementById('lockScreen').style.display = 'none';
+        });
+      }
+      return; // 잠금화면 건너뜀
+    } else {
+      // 만료됨 → 초기화
+      localStorage.removeItem('_lic_ok');
+      localStorage.removeItem('_lic_fp');
+      localStorage.removeItem('_lic_exp');
+    }
+  }
+
   // 캐시된 인증 확인 (같은 세션에서 재인증 방지)
   var cached = sessionStorage.getItem('_lic_ok');
   var cachedFp = sessionStorage.getItem('_lic_fp');
@@ -1968,6 +2000,11 @@ function lockDoAuth() {
       spinner.style.display = 'none';
       btn.disabled = false;
       if(data.ok) {
+        // localStorage에 저장 (브라우저 닫아도 유지)
+        localStorage.setItem('_lic_ok', 'Y');
+        localStorage.setItem('_lic_fp', _fpCode);
+        localStorage.setItem('_lic_exp', data.expiry || '2099-12-31');
+        // sessionStorage도 저장
         sessionStorage.setItem('_lic_ok', 'Y');
         sessionStorage.setItem('_lic_fp', _fpCode);
         lockShowStatus('ok', '✅ 인증 완료! 데이터 로딩 중...');
