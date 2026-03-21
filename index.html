@@ -1968,7 +1968,6 @@ function lockDoAuth() {
       spinner.style.display = 'none';
       btn.disabled = false;
       if(data.ok) {
-        lockShowStatus('ok', '✅ 인증 완료! ' + (data.name||'') + ' · 만료: ' + (data.expiry||'무기한'));
         sessionStorage.setItem('_lic_ok', 'Y');
         sessionStorage.setItem('_lic_fp', _fpCode);
         lockShowStatus('ok', '✅ 인증 완료! 데이터 로딩 중...');
@@ -2054,7 +2053,6 @@ function loadDataFromServer(callback) {
       if(data.ok && data.data && data.data.length > 0) {
         RAW = data.data;
         _dataLoaded = true;
-        // 세션에 캐시 (새로고침 시 재사용)
         try { sessionStorage.setItem('_lic_data', JSON.stringify(RAW)); } catch(e){}
         if(statusEl) {
           statusEl.className = 'lock-status-msg ok';
@@ -2063,21 +2061,23 @@ function loadDataFromServer(callback) {
         setTimeout(function(){
           if(callback) callback();
           setTimeout(function(){ initApp(); }, 300);
-        }, 800);
+        }, 600);
       } else {
+        // 데이터 없어도 화면은 열기
         if(statusEl) {
-          statusEl.className = 'lock-status-msg err';
-          statusEl.textContent = '❌ 데이터 로드 실패: ' + (data.msg || '서버 오류');
-          statusEl.style.display = 'block';
+          statusEl.className = 'lock-status-msg warn';
+          statusEl.textContent = '⚠️ 데이터 준비 중입니다. 잠시 후 다시 시도하세요.';
         }
+        setTimeout(function(){ if(callback) callback(); }, 800);
       }
     })
     .catch(function(e){
+      // 네트워크 오류도 화면은 열기
       if(statusEl) {
         statusEl.className = 'lock-status-msg err';
         statusEl.textContent = '❌ 네트워크 오류: ' + e.message;
-        statusEl.style.display = 'block';
       }
+      setTimeout(function(){ if(callback) callback(); }, 800);
     });
 }
 
