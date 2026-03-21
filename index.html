@@ -15,8 +15,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
 <title>합격생의 심화탐구보고서 주제 검색기</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic',sans-serif;background:#f0f4f8;color:#222;height:100vh;display:flex;flex-direction:column;overflow:hidden}
@@ -1864,6 +1862,24 @@ function renderReportHtml(r, row){
    내보내기 공통 유틸
 ════════════════════════════════════════════ */
 
+/* 라이브러리 동적 로드 (핑거프린트 생성 후 필요 시점에만 로드) */
+function _loadScript(url){
+  return new Promise(function(resolve,reject){
+    if(document.querySelector('script[src="'+url+'"]')){resolve();return;}
+    var s=document.createElement('script');
+    s.src=url;
+    s.onload=resolve;
+    s.onerror=reject;
+    document.head.appendChild(s);
+  });
+}
+function _loadExportLibs(){
+  return Promise.all([
+    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'),
+    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+  ]);
+}
+
 /* 보고서 제목 추출 (파일명용) */
 function _rptTitle(){
   var el=document.getElementById('rpt-content');
@@ -1878,8 +1894,10 @@ async function exportImage(){
   if(!el){ alert('보고서가 없습니다.'); return; }
   var btn=document.getElementById('ai-btn-img');
   var orig=btn.textContent;
-  btn.textContent='⏳ 생성 중...'; btn.disabled=true;
+  btn.textContent='⏳ 라이브러리 로딩...'; btn.disabled=true;
   try {
+    await _loadExportLibs();
+    btn.textContent='⏳ 생성 중...';
     var canvas=await html2canvas(el,{
       scale:2,
       useCORS:true,
@@ -1908,8 +1926,10 @@ async function exportPDF(){
   if(!el){ alert('보고서가 없습니다.'); return; }
   var btn=document.getElementById('ai-btn-pdf');
   var orig=btn.textContent;
-  btn.textContent='⏳ PDF 생성 중...'; btn.disabled=true;
+  btn.textContent='⏳ 라이브러리 로딩...'; btn.disabled=true;
   try {
+    await _loadExportLibs();
+    btn.textContent='⏳ PDF 생성 중...';
     var canvas=await html2canvas(el,{
       scale:2,
       useCORS:true,
