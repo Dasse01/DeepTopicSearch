@@ -2,20 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-  <!-- OG 메타 태그 (카카오톡·밴드·SNS 공유 미리보기) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://deep-topic-search.vercel.app">
   <meta property="og:title" content="심화탐구주제검색기 | 합격생 10,788건 데이터">
-  <meta property="og:description" content="지원 대학 합격생들은 어떤 주제로 심화탐구를 했을까? 실제 합격생 10,788건 데이터로 목표 대학·학과별 탐구 주제를 즉시 검색하고 AI로 보고서 초안까지 자동 완성. 고1·고2·고3 무료 1주일 체험!">
+  <meta property="og:description" content="지원 대학 합격생들은 어떤 주제로 심화탐구를 했을까? 실제 합격생 10,788건 데이터로 목표 대학·학과별 탐구 주제를 즉시 검색. 고1·고2·고3 무료 1주일 체험!">
   <meta property="og:image" content="https://deep-topic-search.vercel.app/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="심화탐구주제검색기 - 맥에듀테크">
-  <!-- 카카오톡 추가 -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="심화탐구주제검색기 | 합격생 10,788건 데이터">
-  <meta name="twitter:description" content="지원 대학 합격생들은 어떤 주제로 심화탐구를 했을까? 무료 1주일 체험!">
   <meta name="description" content="실제 합격생 10,788건 심화탐구보고서 데이터로 목표 대학·학과별 탐구 주제 즉시 검색. 고1·고2·고3 모두 활용 가능. 맥에듀테크 김휘창입시컨설팅.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
@@ -24,13 +19,12 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic',sans-serif;background:#f0f4f8;color:#222;height:100vh;display:flex;flex-direction:column;overflow:hidden}
 body.locked>*:not(#lockScreen){display:none!important}
-/* ── 랜딩페이지 CSS ── */
 .lp-wrap{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between}
-.lp-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(10,20,50,.6);backdrop-filter:blur(12px)}
+.lp-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(10,20,50,.6);backdrop-filter:blur(12px)}
 .lp-logo{display:flex;align-items:center;gap:10px;color:#fff;font-size:20px;font-weight:800;font-family:'Malgun Gothic',sans-serif}
 .lp-hero{flex:1;display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 40px 16px;flex-wrap:wrap}
 .lp-left{flex:1;min-width:280px;max-width:520px}
-.lp-h1{color:#fff;font-size:clamp(26px,3.5vw,40px);font-weight:900;font-family:'Malgun Gothic',sans-serif;line-height:1.25;margin:0 0 14px}
+.lp-h1{color:#fff;font-size:clamp(24px,3.5vw,40px);font-weight:900;font-family:'Malgun Gothic',sans-serif;line-height:1.25;margin:0 0 12px}
 .lp-h1 em{font-style:normal;background:linear-gradient(90deg,#E07B1A,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .lp-desc{color:rgba(255,255,255,.65);font-size:13px;line-height:1.75;font-family:'Malgun Gothic',sans-serif;margin:0 0 14px}
 .lp-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
@@ -45,7 +39,6 @@ body.locked>*:not(#lockScreen){display:none!important}
 .auth-card{flex-shrink:0;width:340px;background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.13);border-radius:20px;padding:18px;box-sizing:border-box}
 .lp-trust{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;padding:10px 40px;border-top:1px solid rgba(255,255,255,.07)}
 .lp-trust-item{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.45);font-size:11px;font-family:'Malgun Gothic',sans-serif}
-.lp-footer{text-align:center;padding:12px 40px 16px;border-top:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.2)}
 .lp-contact{color:#E07B1A;text-decoration:none;font-weight:700}
 
 /* 헤더 */
@@ -605,10 +598,7 @@ body.locked>*:not(#lockScreen){display:none!important}
 <div id="lockScreen">
   <div class="lock-stars" id="lockStars"></div>
   <div id="lockParticles" style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden"></div>
-
   <div class="lp-wrap">
-
-    <!-- 네비 -->
     <div class="lp-nav">
       <div class="lp-logo">📚 심화탐구주제검색기</div>
       <div style="display:flex;align-items:center;gap:10px">
@@ -616,44 +606,32 @@ body.locked>*:not(#lockScreen){display:none!important}
         <a href="mailto:studyjinrojinhak@gmail.com" style="background:rgba(224,123,26,.2);border:1px solid rgba(224,123,26,.4);color:#E07B1A;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;text-decoration:none">문의하기</a>
       </div>
     </div>
-
-    <!-- 히어로 -->
     <div class="lp-hero">
-
-      <!-- 왼쪽 -->
       <div class="lp-left">
         <h1 class="lp-h1">지원 대학 합격생들은<br>어떤 주제로<br><em>심화탐구를 했을까?</em></h1>
         <p class="lp-desc">막연한 탐구 주제 고민, 이제 끝입니다.<br>실제 합격생 <strong style="color:#F5C518">10,788건</strong>의 심화탐구보고서 데이터를<br>목표 대학·학과·교과목별로 즉시 검색하고<br>현재 고1·고2·고3 학생 모두 활용 가능합니다.</p>
-
         <div class="lp-stats">
           <div class="lp-stat"><div class="lp-stat-n">10,788</div><div class="lp-stat-l">합격생 데이터</div></div>
           <div class="lp-stat"><div class="lp-stat-n">219개교</div><div class="lp-stat-l">전국 대학</div></div>
           <div class="lp-stat"><div class="lp-stat-n">AI 연동</div><div class="lp-stat-l">보고서 자동완성</div></div>
           <div class="lp-stat"><div class="lp-stat-n">30년</div><div class="lp-stat-l">입시 전문</div></div>
         </div>
-
-        <!-- 무료체험 CTA -->
         <div class="lp-cta">
           <div style="color:#81c784;font-size:13px;font-weight:800;font-family:'Malgun Gothic',sans-serif;margin-bottom:5px">🎁 지금 바로 무료 1주일 체험</div>
-          <div style="color:rgba(255,255,255,.6);font-size:11px;font-family:'Malgun Gothic',sans-serif;margin-bottom:12px">체험 후 유료전환: 입금 확인 후 승인 · 국민은행 165802-04-319128 김휘창 · 6만원</div>
-          <div onclick="lockSwitchTab('reg')" style="display:inline-block;background:#2e7d32;color:#fff;font-size:12px;font-weight:800;padding:9px 20px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;cursor:pointer">무료로 시작하기 →</div>
+          <div style="color:rgba(255,255,255,.6);font-size:11px;font-family:'Malgun Gothic',sans-serif;margin-bottom:10px">체험 후 유료전환: 입금 확인 후 승인 · 국민은행 165802-04-319128 김휘창 · 6만원</div>
+          <div onclick="lockSwitchTab('reg')" style="display:inline-block;background:#2e7d32;color:#fff;font-size:12px;font-weight:800;padding:8px 18px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;cursor:pointer">무료로 시작하기 →</div>
         </div>
-
         <div class="lp-feat"><span class="lp-feat-icon">🔍</span><div><div class="lp-feat-title">목표 대학·학과별 탐구 주제 즉시 검색</div><div class="lp-feat-desc">대학·학과·교과목·활동유형 다중 필터로 원하는 주제를 바로 찾습니다</div></div></div>
         <div class="lp-feat"><span class="lp-feat-icon">📊</span><div><div class="lp-feat-title">학과별 인기 키워드 워드클라우드 분석</div><div class="lp-feat-desc">목표 학과 합격생들이 가장 많이 다룬 주제를 한눈에 시각화</div></div></div>
         <div class="lp-feat"><span class="lp-feat-icon">🤖</span><div><div class="lp-feat-title">AI 심화탐구보고서 자동 생성</div><div class="lp-feat-desc">선택한 주제로 서론·본론·결론을 AI가 30~60초 만에 완성</div></div></div>
       </div>
-
-      <!-- 오른쪽: 인증 카드 -->
       <div class="auth-card">
-        <div style="color:#fff;font-size:14px;font-weight:800;font-family:'Malgun Gothic',sans-serif;text-align:center;margin-bottom:14px">🔐 프로그램 접속</div>
+        <div style="color:#fff;font-size:14px;font-weight:800;font-family:'Malgun Gothic',sans-serif;text-align:center;margin-bottom:12px">🔐 프로그램 접속</div>
         <div class="lock-status-msg" id="lockStatus"></div>
-
         <div style="display:flex;gap:6px;margin-bottom:12px">
           <button id="tabAuth" onclick="lockSwitchTab('auth')" style="flex:1;padding:9px 6px;border-radius:8px;border:2px solid #E07B1A;background:linear-gradient(135deg,#E07B1A,#F5C518);color:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:'Malgun Gothic',sans-serif">🔓 PC 인증<br><span style="font-size:10px;font-weight:400;opacity:.85">등록된 PC 접속</span></button>
           <button id="tabReg" onclick="lockSwitchTab('reg')" style="flex:1;padding:9px 6px;border-radius:8px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:12px;font-weight:800;cursor:pointer;font-family:'Malgun Gothic',sans-serif">📝 신규 등록<br><span style="font-size:10px;font-weight:400;opacity:.7">처음 사용 시</span></button>
         </div>
-
         <div id="lockPanelAuth">
           <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;margin-bottom:10px">
             <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;font-family:'Malgun Gothic',sans-serif">🖥 이 PC의 고유 인증 코드 (자동 생성)</div>
@@ -663,7 +641,6 @@ body.locked>*:not(#lockScreen){display:none!important}
             <span class="fp-spinner" id="authSpinner" style="display:none"></span>🔓 PC 인증하기
           </button>
         </div>
-
         <div id="lockPanelReg" style="display:none">
           <div class="fp-step">
             <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;margin-bottom:8px">
@@ -682,12 +659,10 @@ body.locked>*:not(#lockScreen){display:none!important}
             </button>
           </div>
         </div>
-
         <div style="background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);border-radius:8px;padding:10px 12px;margin-top:12px;font-family:'Malgun Gothic',sans-serif">
           <div style="color:#F5C518;font-size:11px;font-weight:700;margin-bottom:4px">💡 이용 안내</div>
           <div style="color:rgba(255,255,255,.6);font-size:10px;line-height:1.7">✅ 최초 1회 PC 인증 후 재인증 불필요<br>✅ 바탕화면 바로가기 추가 권장<br>✅ 바로가기 실행 시 자동 인증</div>
         </div>
-
         <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
           <span style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-size:10px;padding:3px 8px;border-radius:20px;font-family:'Malgun Gothic',sans-serif">PROTECTED · 맥에듀테크</span>
           <div style="display:flex;align-items:center;gap:4px">
@@ -697,40 +672,31 @@ body.locked>*:not(#lockScreen){display:none!important}
         </div>
       </div>
     </div>
-
-    <!-- 신뢰 배지 -->
     <div class="lp-trust">
       <div class="lp-trust-item">📋 실제 합격생 심화탐구보고서 10,788건 기반</div>
       <div class="lp-trust-item">🏫 전국 219개 대학 데이터 수록</div>
       <div class="lp-trust-item">👨‍🏫 입시 전문가 30년 노하우 집약</div>
     </div>
-
-    <!-- 푸터 -->
     <div style="border-top:1px solid rgba(255,255,255,.08);background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,.1));padding:14px 40px 16px;font-family:'Malgun Gothic',sans-serif">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-        <!-- 로고 -->
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:18px">📚</span>
           <div>
-            <div style="color:#fff;font-size:12px;font-weight:800;letter-spacing:-.01em">심화탐구주제검색기</div>
+            <div style="color:#fff;font-size:12px;font-weight:800">심화탐구주제검색기</div>
             <div style="color:rgba(255,255,255,.4);font-size:10px;margin-top:1px">맥에듀테크 (MacEduTech) · 김휘창입시컨설팅</div>
           </div>
         </div>
-        <!-- 문의 -->
         <a href="mailto:studyjinrojinhak@gmail.com" style="display:flex;align-items:center;gap:6px;background:rgba(224,123,26,.15);border:1px solid rgba(224,123,26,.3);border-radius:20px;padding:6px 14px;text-decoration:none">
           <span style="font-size:13px">📧</span>
           <span style="color:#E07B1A;font-size:11px;font-weight:700">studyjinrojinhak@gmail.com</span>
         </a>
       </div>
-      <!-- 구분선 -->
       <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px"></div>
-      <!-- 저작권 -->
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
         <div style="color:rgba(255,255,255,.22);font-size:10px">© 2026 MacEduTech · 김휘창입시컨설팅. All rights reserved.</div>
         <div style="color:rgba(255,255,255,.18);font-size:10px">본 프로그램의 모든 데이터·콘텐츠는 맥에듀테크의 자산으로 무단 복제·배포를 금지합니다.</div>
       </div>
     </div>
-
   </div>
 </div>
 <div class="hdr">
@@ -2818,4 +2784,16 @@ function lockUnlock(){
   });
 
   // 복사 이벤트 차단 (입력창 제외)
-  document.addEventL
+  document.addEventListener('copy', function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if(tag === 'INPUT' || tag === 'TEXTAREA') return true;
+    e.preventDefault();
+    return false;
+  });
+
+  // 개발자도구 감지 제거 (GitHub Pages 호환)
+})();
+
+</script>
+</body>
+</html>
