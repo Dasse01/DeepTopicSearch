@@ -562,7 +562,7 @@ body.locked>*:not(#lockScreen){visibility:hidden!important;pointer-events:none!i
 </style>
 
 </head>
-<body>
+<body class="locked">
 
 <!-- ══ 시크릿 잠금 화면 ══ -->
 <div id="lockScreen">
@@ -1938,12 +1938,12 @@ function genFingerprint() {
         try {
           RAW = JSON.parse(cachedData);
           _dataLoaded = true;
-          document.getElementById('lockScreen').style.display = 'none';
+          document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
           setTimeout(function(){ initApp(); }, 100);
         } catch(e) { localStorage.removeItem('_lic_ok'); }
       } else {
         loadDataFromServer(function(){
-          document.getElementById('lockScreen').style.display = 'none';
+          document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
         });
       }
       return; // 잠금화면 건너뜀
@@ -1965,14 +1965,14 @@ function genFingerprint() {
       try {
         RAW = JSON.parse(cachedData);
         _dataLoaded = true;
-        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
         setTimeout(function(){ initApp(); }, 100);
       } catch(e) {
         // 캐시 데이터 오류 시 재인증
       }
     } else {
       loadDataFromServer(function(){
-        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
       });
     }
   }
