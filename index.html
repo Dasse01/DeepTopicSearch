@@ -2709,13 +2709,7 @@ function lockUnlock(){
     return false;
   });
 
-  // 개발자 도구 감지 (창 크기 변화 기반)
-  var _devCheck = setInterval(function(){
-    if(window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160){
-      clearInterval(_devCheck);
-      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0D1B3E;flex-direction:column;gap:16px"><div style="font-size:48px">🔒</div><div style="color:#fff;font-size:22px;font-weight:800;font-family:Malgun Gothic">접근이 제한되었습니다</div><div style="color:rgba(255,255,255,.5);font-size:14px;font-family:Malgun Gothic">맥에듀테크 · 김휘창입시컨설팅</div></div>';
-    }
-  }, 1000);
+  // 개발자도구 감지 제거 (GitHub Pages 호환)
 })();
 
 </script>
