@@ -603,7 +603,7 @@ body.locked>*:not(#lockScreen){display:none!important}
       <div class="lp-logo">📚 심화탐구주제검색기</div>
       <div style="display:flex;align-items:center;gap:10px">
         <span style="background:rgba(46,125,50,.25);border:1px solid rgba(46,125,50,.5);color:#81c784;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;font-family:'Malgun Gothic',sans-serif">● 서비스 운영 중</span>
-        <a href="/cdn-cgi/l/email-protection#0c7f787968756665627e63666562646d674c6b616d6560226f6361" style="background:rgba(224,123,26,.2);border:1px solid rgba(224,123,26,.4);color:#E07B1A;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;text-decoration:none">문의하기</a>
+        <a href="/cdn-cgi/l/email-protection#ff8c8b8a9b869596918d90959691979e94bf98929e9693d19c9092" style="background:rgba(224,123,26,.2);border:1px solid rgba(224,123,26,.4);color:#E07B1A;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;text-decoration:none">문의하기</a>
       </div>
     </div>
     <div class="lp-hero">
@@ -686,9 +686,9 @@ body.locked>*:not(#lockScreen){display:none!important}
             <div style="color:rgba(255,255,255,.4);font-size:10px;margin-top:1px">맥에듀테크 (MacEduTech) · 김휘창입시컨설팅</div>
           </div>
         </div>
-        <a href="/cdn-cgi/l/email-protection#eb989f9e8f928182859984818285838a80ab8c868a8287c5888486" style="display:flex;align-items:center;gap:6px;background:rgba(224,123,26,.15);border:1px solid rgba(224,123,26,.3);border-radius:20px;padding:6px 14px;text-decoration:none">
+        <a href="/cdn-cgi/l/email-protection#d6a5a2a3b2afbcbfb8a4b9bcbfb8beb7bd96b1bbb7bfbaf8b5b9bb" style="display:flex;align-items:center;gap:6px;background:rgba(224,123,26,.15);border:1px solid rgba(224,123,26,.3);border-radius:20px;padding:6px 14px;text-decoration:none">
           <span style="font-size:13px">📧</span>
-          <span style="color:#E07B1A;font-size:11px;font-weight:700"><span class="__cf_email__" data-cfemail="6f1c1b1a0b160506011d00050601070e042f08020e0603410c0002">[email&#160;protected]</span></span>
+          <span style="color:#E07B1A;font-size:11px;font-weight:700"><span class="__cf_email__" data-cfemail="e093949584998a898e928f8a898e88818ba0878d81898cce838f8d">[email&#160;protected]</span></span>
         </a>
       </div>
       <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px"></div>
@@ -1862,14 +1862,12 @@ function renderReportHtml(r, row){
    내보내기 공통 유틸
 ════════════════════════════════════════════ */
 
-/* 라이브러리 동적 로드 (핑거프린트 생성 후 필요 시점에만 로드) */
+/* 라이브러리 동적 로드 — 핑거프린트 생성 후 버튼 클릭 시에만 로드 */
 function _loadScript(url){
   return new Promise(function(resolve,reject){
     if(document.querySelector('script[src="'+url+'"]')){resolve();return;}
     var s=document.createElement('script');
-    s.src=url;
-    s.onload=resolve;
-    s.onerror=reject;
+    s.src=url;s.onload=resolve;s.onerror=reject;
     document.head.appendChild(s);
   });
 }
@@ -1885,150 +1883,102 @@ function _rptTitle(){
   var el=document.getElementById('rpt-content');
   if(!el) return '탐구보고서';
   var t=el.querySelector('.rpt-title');
-  return t ? t.textContent.trim().replace(/[\\/:*?"<>|]/g,'').substring(0,40) : '탐구보고서';
+  return t?t.textContent.trim().replace(/[\\/:*?"<>|]/g,'').substring(0,40):'탐구보고서';
 }
 
 /* ── 이미지 저장 (고해상도 PNG 단일 파일) ── */
 async function exportImage(){
   var el=document.getElementById('rpt-content');
-  if(!el){ alert('보고서가 없습니다.'); return; }
+  if(!el){alert('보고서가 없습니다.');return;}
   var btn=document.getElementById('ai-btn-img');
   var orig=btn.textContent;
-  btn.textContent='⏳ 라이브러리 로딩...'; btn.disabled=true;
-  try {
+  btn.textContent='⏳ 라이브러리 로딩...';btn.disabled=true;
+  try{
     await _loadExportLibs();
     btn.textContent='⏳ 생성 중...';
-    var canvas=await html2canvas(el,{
-      scale:2,
-      useCORS:true,
-      allowTaint:true,
-      backgroundColor:'#ffffff',
-      scrollX:0, scrollY:0,
-      windowWidth:el.scrollWidth,
-      width:el.scrollWidth,
-      height:el.scrollHeight
-    });
+    var canvas=await html2canvas(el,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',scrollX:0,scrollY:0,windowWidth:el.scrollWidth,width:el.scrollWidth,height:el.scrollHeight});
     var a=document.createElement('a');
     a.download=_rptTitle()+'.png';
     a.href=canvas.toDataURL('image/png');
     a.click();
     btn.textContent='✓ 저장 완료!';
     setTimeout(function(){btn.textContent=orig;btn.disabled=false;},2000);
-  } catch(e){
-    alert('이미지 저장 실패: '+e.message);
-    btn.textContent=orig; btn.disabled=false;
-  }
+  }catch(e){alert('이미지 저장 실패: '+e.message);btn.textContent=orig;btn.disabled=false;}
 }
 
 /* ── PDF 저장 (이어지는 내용, 인쇄창 없이 직접 저장) ── */
 async function exportPDF(){
   var el=document.getElementById('rpt-content');
-  if(!el){ alert('보고서가 없습니다.'); return; }
+  if(!el){alert('보고서가 없습니다.');return;}
   var btn=document.getElementById('ai-btn-pdf');
   var orig=btn.textContent;
-  btn.textContent='⏳ 라이브러리 로딩...'; btn.disabled=true;
-  try {
+  btn.textContent='⏳ 라이브러리 로딩...';btn.disabled=true;
+  try{
     await _loadExportLibs();
     btn.textContent='⏳ PDF 생성 중...';
-    var canvas=await html2canvas(el,{
-      scale:2,
-      useCORS:true,
-      allowTaint:true,
-      backgroundColor:'#ffffff',
-      scrollX:0, scrollY:0,
-      windowWidth:el.scrollWidth,
-      width:el.scrollWidth,
-      height:el.scrollHeight
-    });
-    var imgW=canvas.width, imgH=canvas.height;
-    /* A4 기준: 210×297mm → pt 환산(jsPDF 기본 72dpi 기준) */
-    var pageW=595.28, pageH=841.89;   /* A4 pt */
-    var margin=20;                     /* 상하좌우 여백(pt) */
+    var canvas=await html2canvas(el,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',scrollX:0,scrollY:0,windowWidth:el.scrollWidth,width:el.scrollWidth,height:el.scrollHeight});
+    var imgW=canvas.width,imgH=canvas.height;
+    var pageW=595.28,pageH=841.89,margin=20;
     var contentW=pageW-margin*2;
-    var scale=contentW/imgW;           /* 캔버스 → pt 비율 */
-    var contentH=imgH*scale;           /* 전체 콘텐츠 높이(pt) */
-    var pageContentH=pageH-margin*2;   /* 한 페이지에 담을 수 있는 높이(pt) */
-    var totalPages=Math.ceil(contentH/pageContentH);
-
-    var { jsPDF }=window.jspdf;
-    var pdf=new jsPDF({orientation:'portrait',unit:'pt',format:'a4'});
-
+    var scale=contentW/imgW;
+    var pageContentH=pageH-margin*2;
+    var totalPages=Math.ceil((imgH*scale)/pageContentH);
+    var jsPDF_=window.jspdf.jsPDF;
+    var pdf=new jsPDF_({orientation:'portrait',unit:'pt',format:'a4'});
     for(var p=0;p<totalPages;p++){
       if(p>0) pdf.addPage();
-      /* 이 페이지에서 캔버스의 어느 y 구간을 잘라낼지 계산 */
       var srcY=Math.round(p*pageContentH/scale);
-      var srcH=Math.min(Math.round(pageContentH/scale), imgH-srcY);
-      /* 해당 슬라이스만 오프스크린 캔버스에 그리기 */
-      var sliceCanvas=document.createElement('canvas');
-      sliceCanvas.width=imgW;
-      sliceCanvas.height=srcH;
-      var ctx=sliceCanvas.getContext('2d');
-      ctx.drawImage(canvas,0,srcY,imgW,srcH,0,0,imgW,srcH);
-      var sliceData=sliceCanvas.toDataURL('image/jpeg',0.95);
-      var sliceH=srcH*scale;   /* 실제 출력 높이(pt) */
-      pdf.addImage(sliceData,'JPEG',margin,margin,contentW,sliceH);
+      var srcH=Math.min(Math.round(pageContentH/scale),imgH-srcY);
+      var sc=document.createElement('canvas');
+      sc.width=imgW;sc.height=srcH;
+      sc.getContext('2d').drawImage(canvas,0,srcY,imgW,srcH,0,0,imgW,srcH);
+      pdf.addImage(sc.toDataURL('image/jpeg',0.95),'JPEG',margin,margin,contentW,srcH*scale);
     }
     pdf.save(_rptTitle()+'.pdf');
     btn.textContent='✓ 저장 완료!';
     setTimeout(function(){btn.textContent=orig;btn.disabled=false;},2000);
-  } catch(e){
-    alert('PDF 저장 실패: '+e.message);
-    btn.textContent=orig; btn.disabled=false;
-  }
+  }catch(e){alert('PDF 저장 실패: '+e.message);btn.textContent=orig;btn.disabled=false;}
 }
 
 /* ── 워드/한글 복사 (HTML 원본 스타일 포함) ── */
 function _getRptCss(){
-  /* 보고서 관련 CSS만 추출 */
   var result='';
-  try {
+  try{
     var sheets=document.styleSheets;
     for(var i=0;i<sheets.length;i++){
-      var rules;
-      try{ rules=sheets[i].cssRules||sheets[i].rules; }catch(e){ continue; }
-      if(!rules) continue;
+      var rules;try{rules=sheets[i].cssRules||sheets[i].rules;}catch(e){continue;}
+      if(!rules)continue;
       for(var j=0;j<rules.length;j++){
-        var r=rules[j];
-        if(!r.cssText) continue;
-        /* @media print는 제외, rpt 관련 규칙 포함 */
-        if(r.cssText.indexOf('@media print')>=0) continue;
-        if(r.selectorText&&(
-          r.selectorText.indexOf('.rpt')>=0||
-          r.selectorText.indexOf('body')>=0||
-          r.selectorText.indexOf('*')>=0
-        )) result+=r.cssText+'\n';
+        var r=rules[j];if(!r.cssText)continue;
+        if(r.cssText.indexOf('@media print')>=0)continue;
+        if(r.selectorText&&(r.selectorText.indexOf('.rpt')>=0||r.selectorText.indexOf('body')>=0||r.selectorText.indexOf('*')>=0))
+          result+=r.cssText+'\n';
       }
     }
-  } catch(e){}
+  }catch(e){}
   return result;
 }
 
 function copyForWord(){
   var el=document.getElementById('rpt-content');
-  if(!el){ alert('보고서가 없습니다.'); return; }
+  if(!el){alert('보고서가 없습니다.');return;}
   var btn=document.getElementById('ai-btn-copy');
   var orig=btn.textContent;
-
-  /* 인라인 스타일이 포함된 독립 HTML 문서 생성 */
   var css=_getRptCss();
-  var fullHtml='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">'+
-    '<style>body{font-family:"Malgun Gothic","맑은 고딕",sans-serif;margin:20px}'+css+'</style>'+
-    '</head><body>'+el.outerHTML+'</body></html>';
-
-  try {
+  var fullHtml='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><style>body{font-family:"Malgun Gothic","맑은 고딕",sans-serif;margin:20px}'+css+'</style></head><body>'+el.outerHTML+'</body></html>';
+  try{
     var blob=new Blob([fullHtml],{type:'text/html'});
     var clipItem=new ClipboardItem({'text/html':blob,'text/plain':new Blob([el.innerText],{type:'text/plain'})});
     navigator.clipboard.write([clipItem]).then(function(){
       btn.textContent='✓ 복사 완료!';
       setTimeout(function(){btn.textContent=orig;},2500);
-    }).catch(function(e2){
-      /* fallback: innerText */
+    }).catch(function(){
       navigator.clipboard.writeText(el.innerText).then(function(){
         btn.textContent='✓ 텍스트 복사!';
         setTimeout(function(){btn.textContent=orig;},2500);
       }).catch(function(){alert('복사 실패. 브라우저 권한을 확인하세요.');});
     });
-  } catch(e){
+  }catch(e){
     navigator.clipboard.writeText(el.innerText).then(function(){
       btn.textContent='✓ 텍스트 복사!';
       setTimeout(function(){btn.textContent=orig;},2500);
@@ -2790,6 +2740,134 @@ function renderReportHtml(r, row){
   document.getElementById('ai-btn-copy').style.display='';
 }
 
+/* ════════════════════════════════════════════
+   내보내기 공통 유틸
+════════════════════════════════════════════ */
+
+/* 라이브러리 동적 로드 — 핑거프린트 생성 후 버튼 클릭 시에만 로드 */
+function _loadScript(url){
+  return new Promise(function(resolve,reject){
+    if(document.querySelector('script[src="'+url+'"]')){resolve();return;}
+    var s=document.createElement('script');
+    s.src=url;s.onload=resolve;s.onerror=reject;
+    document.head.appendChild(s);
+  });
+}
+function _loadExportLibs(){
+  return Promise.all([
+    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'),
+    _loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
+  ]);
+}
+
+/* 보고서 제목 추출 (파일명용) */
+function _rptTitle(){
+  var el=document.getElementById('rpt-content');
+  if(!el) return '탐구보고서';
+  var t=el.querySelector('.rpt-title');
+  return t?t.textContent.trim().replace(/[\\/:*?"<>|]/g,'').substring(0,40):'탐구보고서';
+}
+
+/* ── 이미지 저장 (고해상도 PNG 단일 파일) ── */
+async function exportImage(){
+  var el=document.getElementById('rpt-content');
+  if(!el){alert('보고서가 없습니다.');return;}
+  var btn=document.getElementById('ai-btn-img');
+  var orig=btn.textContent;
+  btn.textContent='⏳ 라이브러리 로딩...';btn.disabled=true;
+  try{
+    await _loadExportLibs();
+    btn.textContent='⏳ 생성 중...';
+    var canvas=await html2canvas(el,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',scrollX:0,scrollY:0,windowWidth:el.scrollWidth,width:el.scrollWidth,height:el.scrollHeight});
+    var a=document.createElement('a');
+    a.download=_rptTitle()+'.png';
+    a.href=canvas.toDataURL('image/png');
+    a.click();
+    btn.textContent='✓ 저장 완료!';
+    setTimeout(function(){btn.textContent=orig;btn.disabled=false;},2000);
+  }catch(e){alert('이미지 저장 실패: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
+
+/* ── PDF 저장 (이어지는 내용, 인쇄창 없이 직접 저장) ── */
+async function exportPDF(){
+  var el=document.getElementById('rpt-content');
+  if(!el){alert('보고서가 없습니다.');return;}
+  var btn=document.getElementById('ai-btn-pdf');
+  var orig=btn.textContent;
+  btn.textContent='⏳ 라이브러리 로딩...';btn.disabled=true;
+  try{
+    await _loadExportLibs();
+    btn.textContent='⏳ PDF 생성 중...';
+    var canvas=await html2canvas(el,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',scrollX:0,scrollY:0,windowWidth:el.scrollWidth,width:el.scrollWidth,height:el.scrollHeight});
+    var imgW=canvas.width,imgH=canvas.height;
+    var pageW=595.28,pageH=841.89,margin=20;
+    var contentW=pageW-margin*2;
+    var scale=contentW/imgW;
+    var pageContentH=pageH-margin*2;
+    var totalPages=Math.ceil((imgH*scale)/pageContentH);
+    var jsPDF_=window.jspdf.jsPDF;
+    var pdf=new jsPDF_({orientation:'portrait',unit:'pt',format:'a4'});
+    for(var p=0;p<totalPages;p++){
+      if(p>0) pdf.addPage();
+      var srcY=Math.round(p*pageContentH/scale);
+      var srcH=Math.min(Math.round(pageContentH/scale),imgH-srcY);
+      var sc=document.createElement('canvas');
+      sc.width=imgW;sc.height=srcH;
+      sc.getContext('2d').drawImage(canvas,0,srcY,imgW,srcH,0,0,imgW,srcH);
+      pdf.addImage(sc.toDataURL('image/jpeg',0.95),'JPEG',margin,margin,contentW,srcH*scale);
+    }
+    pdf.save(_rptTitle()+'.pdf');
+    btn.textContent='✓ 저장 완료!';
+    setTimeout(function(){btn.textContent=orig;btn.disabled=false;},2000);
+  }catch(e){alert('PDF 저장 실패: '+e.message);btn.textContent=orig;btn.disabled=false;}
+}
+
+/* ── 워드/한글 복사 (HTML 원본 스타일 포함) ── */
+function _getRptCss(){
+  var result='';
+  try{
+    var sheets=document.styleSheets;
+    for(var i=0;i<sheets.length;i++){
+      var rules;try{rules=sheets[i].cssRules||sheets[i].rules;}catch(e){continue;}
+      if(!rules)continue;
+      for(var j=0;j<rules.length;j++){
+        var r=rules[j];if(!r.cssText)continue;
+        if(r.cssText.indexOf('@media print')>=0)continue;
+        if(r.selectorText&&(r.selectorText.indexOf('.rpt')>=0||r.selectorText.indexOf('body')>=0||r.selectorText.indexOf('*')>=0))
+          result+=r.cssText+'\n';
+      }
+    }
+  }catch(e){}
+  return result;
+}
+
+function copyForWord(){
+  var el=document.getElementById('rpt-content');
+  if(!el){alert('보고서가 없습니다.');return;}
+  var btn=document.getElementById('ai-btn-copy');
+  var orig=btn.textContent;
+  var css=_getRptCss();
+  var fullHtml='<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><style>body{font-family:"Malgun Gothic","맑은 고딕",sans-serif;margin:20px}'+css+'</style></head><body>'+el.outerHTML+'</body></html>';
+  try{
+    var blob=new Blob([fullHtml],{type:'text/html'});
+    var clipItem=new ClipboardItem({'text/html':blob,'text/plain':new Blob([el.innerText],{type:'text/plain'})});
+    navigator.clipboard.write([clipItem]).then(function(){
+      btn.textContent='✓ 복사 완료!';
+      setTimeout(function(){btn.textContent=orig;},2500);
+    }).catch(function(){
+      navigator.clipboard.writeText(el.innerText).then(function(){
+        btn.textContent='✓ 텍스트 복사!';
+        setTimeout(function(){btn.textContent=orig;},2500);
+      }).catch(function(){alert('복사 실패. 브라우저 권한을 확인하세요.');});
+    });
+  }catch(e){
+    navigator.clipboard.writeText(el.innerText).then(function(){
+      btn.textContent='✓ 텍스트 복사!';
+      setTimeout(function(){btn.textContent=orig;},2500);
+    }).catch(function(){alert('복사 실패: '+e.message);});
+  }
+}
+
 /* ══ 잠금 화면 JS ══ */
 (function(){
   // 별 생성
@@ -2911,4 +2989,13 @@ function lockUnlock(){
   });
 
   // 복사 이벤트 차단 (입력창 제외)
-  document.addEventL
+  document.addEventListener('copy', function(e){
+    var tag3 = (document.activeElement && document.activeElement.tagName) || '';
+    if(tag3 === 'INPUT' || tag3 === 'TEXTAREA') return true;
+    e.preventDefault();
+    return false;
+  });
+})();
+</script>
+</body>
+</html>
