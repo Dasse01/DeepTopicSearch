@@ -4,12 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
-<title>심화탐구주제검색기</title>
+<title>합격생의 심화탐구보고서 주제 검색기</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic',sans-serif;background:#f0f4f8;color:#222;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-body.locked{overflow:hidden!important;height:100vh!important}
 body.locked>*:not(#lockScreen){display:none!important}
+/* ── 랜딩페이지 CSS ── */
+.lp-wrap{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between}
+.lp-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(10,20,50,.6);backdrop-filter:blur(12px)}
+.lp-logo{display:flex;align-items:center;gap:10px;color:#fff;font-size:20px;font-weight:800;font-family:'Malgun Gothic',sans-serif}
+.lp-hero{flex:1;display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 40px 16px;flex-wrap:wrap}
+.lp-left{flex:1;min-width:280px;max-width:520px}
+.lp-h1{color:#fff;font-size:clamp(26px,3.5vw,40px);font-weight:900;font-family:'Malgun Gothic',sans-serif;line-height:1.25;margin:0 0 14px}
+.lp-h1 em{font-style:normal;background:linear-gradient(90deg,#E07B1A,#F5C518);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.lp-desc{color:rgba(255,255,255,.65);font-size:13px;line-height:1.75;font-family:'Malgun Gothic',sans-serif;margin:0 0 14px}
+.lp-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.lp-stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px;text-align:center;min-width:68px}
+.lp-stat-n{color:#F5C518;font-size:18px;font-weight:900;font-family:'Malgun Gothic',sans-serif}
+.lp-stat-l{color:rgba(255,255,255,.45);font-size:10px;font-family:'Malgun Gothic',sans-serif;margin-top:2px}
+.lp-cta{background:linear-gradient(135deg,rgba(46,125,50,.3),rgba(46,125,50,.15));border:1.5px solid rgba(46,125,50,.5);border-radius:12px;padding:12px 16px;margin-bottom:14px}
+.lp-feat{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 12px;margin-bottom:6px}
+.lp-feat-icon{font-size:18px;flex-shrink:0}
+.lp-feat-title{color:#fff;font-size:12px;font-weight:700;font-family:'Malgun Gothic',sans-serif;margin-bottom:2px}
+.lp-feat-desc{color:rgba(255,255,255,.5);font-size:11px;font-family:'Malgun Gothic',sans-serif;line-height:1.5}
+.auth-card{flex-shrink:0;width:340px;background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.13);border-radius:20px;padding:18px;box-sizing:border-box}
+.lp-trust{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;padding:10px 40px;border-top:1px solid rgba(255,255,255,.07)}
+.lp-trust-item{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.45);font-size:11px;font-family:'Malgun Gothic',sans-serif}
+.lp-footer{text-align:center;padding:12px 40px 16px;border-top:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.2)}
+.lp-contact{color:#E07B1A;text-decoration:none;font-weight:700}
 
 /* 헤더 */
 .hdr{background:linear-gradient(135deg,#1a3c6e,#2e6db4);color:#fff;padding:10px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -387,9 +409,8 @@ body.locked>*:not(#lockScreen){display:none!important}
 #lockScreen{
   position:fixed;inset:0;z-index:99999;
   background:linear-gradient(135deg,#060D1F 0%,#0D1B3E 40%,#1A3C6E 70%,#0D1B3E 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
   overflow:hidden;
-  padding-top:0;
 }
 #lockScreen.fade-out{animation:lockFadeOut .6s ease forwards}
 @keyframes lockFadeOut{to{opacity:0;pointer-events:none}}
@@ -411,7 +432,6 @@ body.locked>*:not(#lockScreen){display:none!important}
   border:1px solid rgba(255,255,255,.14);
   border-radius:24px;
   padding:44px 48px 40px;
-  min-height:100vh;overflow-y:auto;
   width:420px;
   max-width:92vw;
   box-shadow:0 32px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);
@@ -571,137 +591,135 @@ body.locked>*:not(#lockScreen){display:none!important}
   <div class="lock-stars" id="lockStars"></div>
   <div id="lockParticles" style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden"></div>
 
-  <div class="lock-card" style="width:460px;max-width:95vw">
-    <div class="lock-icon-wrap">📚</div>
-    <div class="lock-title" style="color:#fff">심화탐구주제검색기</div>
-    <div class="lock-sub">MACEDULTECH · 김휘창입시컨설팅 | 2028 대입 시리즈</div>
+  <div class="lp-wrap">
 
-    <!-- 상태 메시지 -->
-    <div class="lock-status-msg" id="lockStatus"></div>
-
-    <!-- 안내 문구 -->
-    <div style="background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-family:'Malgun Gothic',sans-serif">
-      <div style="font-size:11px;color:#ffe57f;font-weight:700;margin-bottom:5px">📌 처음 사용하시는 분</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.75);line-height:1.6">
-        ① <b style="color:#ffe57f">신규 등록</b> 탭 → 이름·연락처 입력 → 등록 요청<br>
-        ② 입금 확인 후 관리자 승인 (카톡/문자 안내)<br>
-        ③ 승인 완료 후 <b style="color:#ffe57f">PC 인증</b> 탭 → 인증하기 클릭
+    <!-- 네비 -->
+    <div class="lp-nav">
+      <div class="lp-logo">📚 심화탐구주제검색기</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="background:rgba(46,125,50,.25);border:1px solid rgba(46,125,50,.5);color:#81c784;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;font-family:'Malgun Gothic',sans-serif">● 서비스 운영 중</span>
+        <a href="mailto:studyjinrojinhak@gmail.com" style="background:rgba(224,123,26,.2);border:1px solid rgba(224,123,26,.4);color:#E07B1A;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;text-decoration:none">문의하기</a>
       </div>
     </div>
 
-    <!-- 탭: 인증 / 신규등록 -->
-    <div style="display:flex;gap:6px;margin-bottom:16px">
-      <button id="tabAuth" onclick="lockSwitchTab('auth')" style="flex:1;padding:11px 8px;border-radius:10px;border:2px solid #E07B1A;background:linear-gradient(135deg,#E07B1A,#F5C518);color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:'Malgun Gothic',sans-serif;transition:all .2s;box-shadow:0 4px 14px rgba(224,123,26,.4)">
-        🔓 PC 인증<br><span style="font-size:10px;font-weight:400;opacity:.85">등록된 PC 접속</span>
-      </button>
-      <button id="tabReg" onclick="lockSwitchTab('reg')" style="flex:1;padding:11px 8px;border-radius:10px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:13px;font-weight:800;cursor:pointer;font-family:'Malgun Gothic',sans-serif;transition:all .2s">
-        📝 신규 등록<br><span style="font-size:10px;font-weight:400;opacity:.7">처음 사용 시</span>
-      </button>
-    </div>
+    <!-- 히어로 -->
+    <div class="lp-hero">
 
-    <!-- 인증 탭 -->
-    <div id="lockPanelAuth">
-      <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;margin-bottom:14px">
-        <div style="font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-bottom:6px;font-family:'Malgun Gothic',sans-serif">🖥 이 PC의 고유 인증 코드 (자동 생성)</div>
-        <div class="fp-code" id="fpDisplay">생성 중...</div>
-        <div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:6px;font-family:'Malgun Gothic',sans-serif">※ 이 코드는 이 PC에서만 생성되는 고유값입니다</div>
+      <!-- 왼쪽 -->
+      <div class="lp-left">
+        <h1 class="lp-h1">지원 대학 합격생들은<br>어떤 주제로<br><em>심화탐구를 했을까?</em></h1>
+        <p class="lp-desc">막연한 탐구 주제 고민, 이제 끝입니다.<br>실제 합격생 <strong style="color:#F5C518">10,788건</strong>의 심화탐구보고서 데이터를<br>목표 대학·학과·교과목별로 즉시 검색하고<br>현재 고1·고2·고3 학생 모두 활용 가능합니다.</p>
+
+        <div class="lp-stats">
+          <div class="lp-stat"><div class="lp-stat-n">10,788</div><div class="lp-stat-l">합격생 데이터</div></div>
+          <div class="lp-stat"><div class="lp-stat-n">219개교</div><div class="lp-stat-l">전국 대학</div></div>
+          <div class="lp-stat"><div class="lp-stat-n">AI 연동</div><div class="lp-stat-l">보고서 자동완성</div></div>
+          <div class="lp-stat"><div class="lp-stat-n">30년</div><div class="lp-stat-l">입시 전문</div></div>
+        </div>
+
+        <!-- 무료체험 CTA -->
+        <div class="lp-cta">
+          <div style="color:#81c784;font-size:13px;font-weight:800;font-family:'Malgun Gothic',sans-serif;margin-bottom:5px">🎁 지금 바로 무료 1주일 체험</div>
+          <div style="color:rgba(255,255,255,.6);font-size:11px;font-family:'Malgun Gothic',sans-serif;margin-bottom:12px">체험 후 유료전환: 입금 확인 후 승인 · 국민은행 165802-04-319128 김휘창 · 6만원</div>
+          <div onclick="lockSwitchTab('reg')" style="display:inline-block;background:#2e7d32;color:#fff;font-size:12px;font-weight:800;padding:9px 20px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;cursor:pointer">무료로 시작하기 →</div>
+        </div>
+
+        <div class="lp-feat"><span class="lp-feat-icon">🔍</span><div><div class="lp-feat-title">목표 대학·학과별 탐구 주제 즉시 검색</div><div class="lp-feat-desc">대학·학과·교과목·활동유형 다중 필터로 원하는 주제를 바로 찾습니다</div></div></div>
+        <div class="lp-feat"><span class="lp-feat-icon">📊</span><div><div class="lp-feat-title">학과별 인기 키워드 워드클라우드 분석</div><div class="lp-feat-desc">목표 학과 합격생들이 가장 많이 다룬 주제를 한눈에 시각화</div></div></div>
+        <div class="lp-feat"><span class="lp-feat-icon">🤖</span><div><div class="lp-feat-title">AI 심화탐구보고서 자동 생성</div><div class="lp-feat-desc">선택한 주제로 서론·본론·결론을 AI가 30~60초 만에 완성</div></div></div>
       </div>
-      <button class="lock-btn" id="lockBtn" onclick="lockDoAuth()">
-        <span class="fp-spinner" id="authSpinner" style="display:none"></span>
-        🔓 PC 인증하기
-      </button>
-    </div>
 
-    <!-- 등록 탭 -->
-    <div id="lockPanelReg" style="display:none">
-      <div class="fp-step">
-        <div class="fp-code-box" style="position:relative">
-          <div class="fp-label" style="color:rgba(255,255,255,.7)">🖥 아래 코드를 관리자에게 전달하세요</div>
-          <div class="fp-code" id="fpDisplayReg" style="color:#F5C518;margin:6px 0 10px">생성 중...</div>
-          <button onclick="copyFpCode()" id="copyFpBtn"
-            style="width:100%;padding:8px;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;
-            background:rgba(255,255,255,.1);color:#fff;font-size:12px;font-weight:700;
-            cursor:pointer;font-family:'Malgun Gothic',sans-serif;transition:all .2s;
-            display:flex;align-items:center;justify-content:center;gap:6px">
-            <span id="copyFpIcon">📋</span>
-            <span id="copyFpTxt">코드 복사하기</span>
+      <!-- 오른쪽: 인증 카드 -->
+      <div class="auth-card">
+        <div style="color:#fff;font-size:14px;font-weight:800;font-family:'Malgun Gothic',sans-serif;text-align:center;margin-bottom:14px">🔐 프로그램 접속</div>
+        <div class="lock-status-msg" id="lockStatus"></div>
+
+        <div style="display:flex;gap:6px;margin-bottom:12px">
+          <button id="tabAuth" onclick="lockSwitchTab('auth')" style="flex:1;padding:9px 6px;border-radius:8px;border:2px solid #E07B1A;background:linear-gradient(135deg,#E07B1A,#F5C518);color:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:'Malgun Gothic',sans-serif">🔓 PC 인증<br><span style="font-size:10px;font-weight:400;opacity:.85">등록된 PC 접속</span></button>
+          <button id="tabReg" onclick="lockSwitchTab('reg')" style="flex:1;padding:9px 6px;border-radius:8px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:12px;font-weight:800;cursor:pointer;font-family:'Malgun Gothic',sans-serif">📝 신규 등록<br><span style="font-size:10px;font-weight:400;opacity:.7">처음 사용 시</span></button>
+        </div>
+
+        <div id="lockPanelAuth">
+          <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;font-family:'Malgun Gothic',sans-serif">🖥 이 PC의 고유 인증 코드 (자동 생성)</div>
+            <div class="fp-code" id="fpDisplay" style="font-size:13px">생성 중...</div>
+          </div>
+          <button class="lock-btn" id="lockBtn" onclick="lockDoAuth()">
+            <span class="fp-spinner" id="authSpinner" style="display:none"></span>🔓 PC 인증하기
           </button>
         </div>
-        <input class="lock-input-sm" id="regName" placeholder="이름 (필수)" maxlength="20">
-        <input class="lock-input-sm" id="regPhone" placeholder="연락처 (필수)" maxlength="20">
-        <input class="lock-input-sm" id="regEmail" placeholder="이메일 (선택)" maxlength="50">
-        <input class="lock-input-sm" id="regMemo" placeholder="PC코드 복사 후 여기에 붙여넣기 (선택)" maxlength="100">
-        <button class="lock-btn" id="regBtn" onclick="lockDoRegister()">
-          <span class="fp-spinner" id="regSpinner" style="display:none"></span>
-          📝 등록 요청하기
-        </button>
+
+        <div id="lockPanelReg" style="display:none">
+          <div class="fp-step">
+            <div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;margin-bottom:8px">
+              <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;font-family:'Malgun Gothic',sans-serif">🖥 아래 코드를 관리자에게 전달하세요</div>
+              <div class="fp-code" id="fpDisplayReg" style="color:#F5C518;font-size:13px;margin-bottom:7px">생성 중...</div>
+              <button onclick="copyFpCode()" id="copyFpBtn" style="width:100%;padding:6px;border:1px solid rgba(255,255,255,.2);border-radius:6px;background:rgba(255,255,255,.08);color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:'Malgun Gothic',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px">
+                <span id="copyFpIcon">📋</span><span id="copyFpTxt">코드 복사하기</span>
+              </button>
+            </div>
+            <input class="lock-input-sm" id="regName" placeholder="이름 (필수)" maxlength="20">
+            <input class="lock-input-sm" id="regPhone" placeholder="연락처 (필수)" maxlength="20">
+            <input class="lock-input-sm" id="regEmail" placeholder="이메일 (선택)" maxlength="50">
+            <input class="lock-input-sm" id="regMemo" placeholder="PC코드 복사 후 여기에 붙여넣기 (선택)" maxlength="100">
+            <button class="lock-btn" id="regBtn" onclick="lockDoRegister()">
+              <span class="fp-spinner" id="regSpinner" style="display:none"></span>📝 등록 요청하기
+            </button>
+          </div>
+        </div>
+
+        <div style="background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);border-radius:8px;padding:10px 12px;margin-top:12px;font-family:'Malgun Gothic',sans-serif">
+          <div style="color:#F5C518;font-size:11px;font-weight:700;margin-bottom:4px">💡 이용 안내</div>
+          <div style="color:rgba(255,255,255,.6);font-size:10px;line-height:1.7">✅ 최초 1회 PC 인증 후 재인증 불필요<br>✅ 바탕화면 바로가기 추가 권장<br>✅ 바로가기 실행 시 자동 인증</div>
+        </div>
+
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <span style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-size:10px;padding:3px 8px;border-radius:20px;font-family:'Malgun Gothic',sans-serif">PROTECTED · 맥에듀테크</span>
+          <div style="display:flex;align-items:center;gap:4px">
+            <div style="width:6px;height:6px;border-radius:50%;background:#2e7d32;animation:lockPulse 2s infinite"></div>
+            <span style="font-size:10px;color:rgba(255,255,255,.3);font-family:'Malgun Gothic',sans-serif">보안 활성</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="lock-footer" style="margin-top:18px;flex-direction:column;gap:10px">
-      <!-- 바탕화면 바로가기 버튼 -->
-      <button onclick="addToHomeScreen()" style="
-        width:100%;padding:9px;border-radius:10px;
-        border:1.5px solid rgba(255,255,255,.2);
-        background:rgba(255,255,255,.07);
-        color:rgba(255,255,255,.8);font-size:12px;font-weight:700;
-        cursor:pointer;font-family:'Malgun Gothic',sans-serif;
-        display:flex;align-items:center;justify-content:center;gap:6px;
-        transition:all .2s" id="shortcutBtn">
-        🖥️ 바탕화면 바로가기 만들기
-      </button>
-      <div style="display:flex;justify-content:space-between;align-items:center;width:100%">
-        <span class="lock-footer-badge">PROTECTED · 맥에듀테크</span>
-        <div style="display:flex;align-items:center;gap:6px">
-          <div class="lock-dot"></div>
-        <span style="font-size:10px;color:rgba(255,255,255,.3);font-family:'Malgun Gothic',sans-serif">보안 활성</span>
-      </div>
+    <!-- 신뢰 배지 -->
+    <div class="lp-trust">
+      <div class="lp-trust-item">📋 실제 합격생 심화탐구보고서 10,788건 기반</div>
+      <div class="lp-trust-item">🏫 전국 219개 대학 데이터 수록</div>
+      <div class="lp-trust-item">👨‍🏫 입시 전문가 30년 노하우 집약</div>
     </div>
 
-    <!-- 공지사항 박스 -->
-    <div style="width:100%;margin-top:10px;display:flex;flex-direction:column;gap:10px">
-
-      <!-- 인증 안내 -->
-      <div style="background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.3);border-radius:12px;padding:16px 18px;font-family:'Malgun Gothic',sans-serif">
-        <div style="color:#F5C518;font-size:12px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:6px">
-          💡 이용 안내
+    <!-- 푸터 -->
+    <div style="border-top:1px solid rgba(255,255,255,.08);background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,.1));padding:14px 40px 16px;font-family:'Malgun Gothic',sans-serif">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+        <!-- 로고 -->
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:18px">📚</span>
+          <div>
+            <div style="color:#fff;font-size:12px;font-weight:800;letter-spacing:-.01em">심화탐구주제검색기</div>
+            <div style="color:rgba(255,255,255,.4);font-size:10px;margin-top:1px">맥에듀테크 (MacEduTech) · 김휘창입시컨설팅</div>
+          </div>
         </div>
-        <div style="color:rgba(255,255,255,.75);font-size:11px;line-height:1.8">
-          ✅ <b style="color:#ffe57f">최초 1회 PC 인증</b> 후 재인증이 필요 없습니다<br>
-          ✅ 데이터 로딩이 완료되면 자동으로 프로그램이 열립니다<br>
-          ✅ 원활한 사용을 위해 <b style="color:#ffe57f">바탕화면 바로가기</b>를 꼭 추가하세요<br>
-          ✅ 바로가기 실행 시 재인증 없이 바로 프로그램이 시작됩니다
-        </div>
-      </div>
-
-      <!-- 바탕화면 바로가기 방법 -->
-      <div style="background:rgba(46,107,180,.15);border:1px solid rgba(46,107,180,.3);border-radius:12px;padding:16px 18px;font-family:'Malgun Gothic',sans-serif">
-        <div style="color:#7eb8f7;font-size:12px;font-weight:800;margin-bottom:8px">
-          🖥️ 바탕화면 바로가기 추가 방법
-        </div>
-        <div style="color:rgba(255,255,255,.7);font-size:11px;line-height:1.85">
-          <b style="color:#7eb8f7">Chrome / Edge</b><br>
-          주소창 오른쪽 ⋮ 메뉴 → 저장 및 공유<br>
-          → 바탕화면에 바로가기 추가 클릭<br><br>
-          <b style="color:#7eb8f7">또는</b> 주소창 오른쪽 <b>💻 설치</b> 아이콘 클릭
-        </div>
-      </div>
-
-      <!-- 문의 -->
-      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 18px;font-family:'Malgun Gothic',sans-serif;text-align:center">
-        <div style="color:rgba(255,255,255,.5);font-size:11px;margin-bottom:6px">프로그램 문의</div>
-        <a href="mailto:studyjinrojinhak@gmail.com" style="color:#E07B1A;font-size:13px;font-weight:700;text-decoration:none">
-          📧 studyjinrojinhak@gmail.com
+        <!-- 문의 -->
+        <a href="mailto:studyjinrojinhak@gmail.com" style="display:flex;align-items:center;gap:6px;background:rgba(224,123,26,.15);border:1px solid rgba(224,123,26,.3);border-radius:20px;padding:6px 14px;text-decoration:none">
+          <span style="font-size:13px">📧</span>
+          <span style="color:#E07B1A;font-size:11px;font-weight:700">studyjinrojinhak@gmail.com</span>
         </a>
-        <div style="color:rgba(255,255,255,.35);font-size:10px;margin-top:6px">맥에듀테크 · 김휘창입시컨설팅</div>
       </div>
-
+      <!-- 구분선 -->
+      <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px"></div>
+      <!-- 저작권 -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+        <div style="color:rgba(255,255,255,.22);font-size:10px">© 2026 MacEduTech · 김휘창입시컨설팅. All rights reserved.</div>
+        <div style="color:rgba(255,255,255,.18);font-size:10px">본 프로그램의 모든 데이터·콘텐츠는 맥에듀테크의 자산으로 무단 복제·배포를 금지합니다.</div>
+      </div>
     </div>
+
   </div>
 </div>
-
 <div class="hdr">
-  <div><h1>&#128218; 심화탐구주제검색기</h1><div class="sub">맥에듀테크 · 김휘창입시컨설팅 | 합격생의 심화탐구보고서 주제 검색기</div></div>
+  <div><h1>&#128218; 합격생의 심화탐구보고서 주제 검색기</h1><div class="sub">맥에듀테크 · 김휘창입시컨설팅</div></div>
   <div class="badge" id="tot">로딩중...</div>
 </div>
 
@@ -1962,43 +1980,37 @@ function genFingerprint() {
   var fpEl = document.getElementById('fpDisplay');
   var fpEl2 = document.getElementById('fpDisplayReg');
   if(fpEl) fpEl.textContent = _fpCode;
-  document.body.classList.add('locked');
   if(fpEl2) fpEl2.textContent = _fpCode;
 
-  // ── 자동 인증 확인 (localStorage) ──
-  var savedFp  = localStorage.getItem('_lic_fp');
-  var savedExp = localStorage.getItem('_lic_exp');
-  var savedOk  = localStorage.getItem('_lic_ok');
-
-  if(savedOk === 'Y' && savedFp === _fpCode && savedExp) {
-    var expDate = new Date(savedExp);
-    var today   = new Date(); today.setHours(0,0,0,0);
-    if(expDate >= today) {
-      // 만료 안 됨 → 자동 진입
-      var cachedData = sessionStorage.getItem('_lic_data');
-      if(cachedData) {
-        try {
-          RAW = JSON.parse(cachedData);
-          _dataLoaded = true;
-          document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
-          setTimeout(function(){ initApp(); }, 100);
-        } catch(e) { localStorage.removeItem('_lic_ok'); }
-      } else {
-        loadDataFromServer(function(){
-          document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
-        });
-      }
-      return; // 잠금화면 건너뜀
-    } else {
-      // 만료됨 → 초기화
-      localStorage.removeItem('_lic_ok');
-      localStorage.removeItem('_lic_fp');
-      localStorage.removeItem('_lic_exp');
-    }
-  }
-
   // 캐시된 인증 확인 (같은 세션에서 재인증 방지)
-  var cached = sessionStorage.getItem('_lic_ok');
+  var savedFp=localStorage.getItem('_lic_fp');
+  var savedOk=localStorage.getItem('_lic_ok');
+  var savedExp=localStorage.getItem('_lic_exp');
+  if(savedOk==='Y'&&savedFp===_fpCode&&savedExp){
+    var ed=new Date(savedExp),td=new Date();td.setHours(0,0,0,0);
+    if(ed>=td){
+      var statusEl=document.getElementById('lockStatus');
+      if(statusEl){statusEl.className='lock-status-msg warn';statusEl.textContent='⏳ 인증 확인 중...';statusEl.style.display='block';}
+      fetch(GAS_URL+'?action=check&fp='+encodeURIComponent(_fpCode)+'&_='+Date.now())
+        .then(function(r){return r.json();})
+        .then(function(data){
+          if(data.ok){
+            localStorage.setItem('_lic_exp',data.expiry||'2099-12-31');
+            var cd=sessionStorage.getItem('_lic_data');
+            if(cd){try{RAW=JSON.parse(cd);_dataLoaded=true;document.getElementById('lockScreen').style.display='none';document.body.classList.remove('locked');setTimeout(function(){initApp();},100);}catch(e){loadDataFromServer(function(){document.getElementById('lockScreen').style.display='none';document.body.classList.remove('locked');});}}
+            else{loadDataFromServer(function(){document.getElementById('lockScreen').style.display='none';document.body.classList.remove('locked');});}
+          }else{
+            localStorage.removeItem('_lic_ok');localStorage.removeItem('_lic_fp');localStorage.removeItem('_lic_exp');
+            if(statusEl){statusEl.className='lock-status-msg err';statusEl.textContent=data.status==='EXPIRED'?'⏰ 사용 기간 만료. 갱신 문의: 맥에듀테크':'❌ '+(data.msg||'인증 실패');}
+          }
+        }).catch(function(){
+          var cd=sessionStorage.getItem('_lic_data');
+          if(cd){try{RAW=JSON.parse(cd);_dataLoaded=true;document.getElementById('lockScreen').style.display='none';document.body.classList.remove('locked');setTimeout(function(){initApp();},100);}catch(e){}}
+        });
+      return;
+    }else{localStorage.removeItem('_lic_ok');localStorage.removeItem('_lic_fp');localStorage.removeItem('_lic_exp');}
+  }
+  var cached=sessionStorage.getItem('_lic_ok');
   var cachedFp = sessionStorage.getItem('_lic_fp');
   if(cached === 'Y' && cachedFp === _fpCode) {
     // 세션 캐시된 데이터 확인
@@ -2007,14 +2019,14 @@ function genFingerprint() {
       try {
         RAW = JSON.parse(cachedData);
         _dataLoaded = true;
-        document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
+        document.getElementById('lockScreen').style.display='none';document.body.classList.remove('locked');
         setTimeout(function(){ initApp(); }, 100);
       } catch(e) {
         // 캐시 데이터 오류 시 재인증
       }
     } else {
       loadDataFromServer(function(){
-        document.getElementById('lockScreen').style.display = 'none'; document.body.classList.remove('locked');
+        document.getElementById('lockScreen').style.display='none';document.body.classList.remove('locked');
       });
     }
   }
@@ -2057,18 +2069,13 @@ function lockDoAuth() {
       spinner.style.display = 'none';
       btn.disabled = false;
       if(data.ok) {
-        // localStorage에 저장 (브라우저 닫아도 유지)
-        localStorage.setItem('_lic_ok', 'Y');
-        localStorage.setItem('_lic_fp', _fpCode);
-        localStorage.setItem('_lic_exp', data.expiry || '2099-12-31');
-        // sessionStorage도 저장
-        sessionStorage.setItem('_lic_ok', 'Y');
-        sessionStorage.setItem('_lic_fp', _fpCode);
+        sessionStorage.setItem('_lic_ok','Y');sessionStorage.setItem('_lic_fp',_fpCode);
+        localStorage.setItem('_lic_ok','Y');localStorage.setItem('_lic_fp',_fpCode);localStorage.setItem('_lic_exp',data.expiry||'2099-12-31');
         lockShowStatus('ok', '✅ 인증 완료! 데이터 로딩 중...');
         loadDataFromServer(function(){
           var ls = document.getElementById('lockScreen');
           ls.classList.add('fade-out');
-          setTimeout(function(){ ls.style.display='none'; document.body.classList.remove('locked'); }, 650);
+          setTimeout(function(){ ls.style.display='none'; }, 650);
         });
       } else {
         if(data.status === 'NOT_FOUND') {
