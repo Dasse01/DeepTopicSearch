@@ -176,15 +176,19 @@ body.locked>*:not(#lockScreen){display:none!important}
 .manual-toggle-arr.open{transform:rotate(180deg)}
 .manual-body{overflow:hidden;max-height:0;transition:max-height .35s ease,opacity .25s ease;opacity:0}
 .manual-body.open{opacity:1}
-.manual-inner{padding:14px 16px 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.manual-step{background:rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(255,255,255,.12)}
-.manual-step-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.manual-inner{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.manual-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.manual-step{background:rgba(255,255,255,.08);border-radius:12px;padding:13px 14px;display:flex;flex-direction:column;gap:8px;border:1px solid rgba(255,255,255,.13);transition:background .15s,border-color .15s;position:relative;overflow:hidden}
+.manual-step:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}
+.manual-step-head{display:flex;align-items:center;gap:8px}
+.manual-step-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.manual-step-title{font-size:12px;font-weight:700;color:#fff}
 .manual-step-body{flex:1}
-.manual-step-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:4px}
-.manual-step-desc{font-size:11px;color:rgba(255,255,255,.72);line-height:1.55}
-.manual-tip{grid-column:1/-1;background:rgba(255,197,24,.15);border:1px solid rgba(255,197,24,.35);border-radius:10px;padding:10px 14px;display:flex;gap:8px;align-items:flex-start}
-.manual-tip-icon{font-size:15px;flex-shrink:0;margin-top:1px}
-.manual-tip-text{font-size:11px;color:rgba(255,255,255,.85);line-height:1.6}
+.manual-step-desc{font-size:11px;color:rgba(255,255,255,.68);line-height:1.6}
+.manual-step-bar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;opacity:.7}
+.manual-tip{background:rgba(255,197,24,.12);border:1px solid rgba(255,197,24,.3);border-radius:10px;padding:9px 14px;display:flex;gap:8px;align-items:flex-start}
+.manual-tip-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.manual-tip-text{font-size:11px;color:rgba(255,255,255,.82);line-height:1.6}
 .manual-tip-text b{color:#ffe57f}
 
 .c0{width:30px;text-align:center;vertical-align:middle!important;padding:4px 2px!important}
@@ -489,6 +493,10 @@ body.locked>*:not(#lockScreen){display:none!important}
 .lock-input::placeholder{color:rgba(255,255,255,.28);letter-spacing:.04em;font-family:'Malgun Gothic',sans-serif;font-size:13px}
 .lock-input:focus{border-color:#E07B1A;background:rgba(255,255,255,.13)}
 .lock-input.error{border-color:#f44;animation:lockShake .35s ease}
+.lock-status-msg{font-size:13px;font-weight:600;text-align:center;padding:8px 12px;border-radius:8px;margin-top:6px;display:none;color:#fff}
+.lock-status-msg.warn{display:block;color:#ffe57f;background:rgba(255,229,127,.12);border:1px solid rgba(255,229,127,.25)}
+.lock-status-msg.ok{display:block;color:#a5d6a7;background:rgba(165,214,167,.12);border:1px solid rgba(165,214,167,.25)}
+.lock-status-msg.err{display:block;color:#ef9a9a;background:rgba(239,154,154,.12);border:1px solid rgba(239,154,154,.25)}
 @keyframes lockShake{
   0%,100%{transform:none}
   20%{transform:translateX(-7px)}
@@ -589,6 +597,44 @@ body.locked>*:not(#lockScreen){display:none!important}
 .wc-empty{text-align:center;padding:60px;color:#bbb;font-size:14px}
 .wc-empty span{display:block;font-size:36px;margin-bottom:10px}
 
+
+.sbj-chip{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #2d3249;background:#22263a;color:#9aa0b8;transition:all .15s;font-family:inherit}
+.sbj-chip:hover{opacity:.85}
+.sbj-chip.active[data-sf="전체"]{background:#E07B1A;border-color:#E07B1A;color:#fff}
+.sbj-chip.active[data-sf="화학"]{background:#4fc3f7;border-color:#4fc3f7;color:#000}
+.sbj-chip.active[data-sf="약학보건"]{background:#81c784;border-color:#81c784;color:#000}
+.sbj-chip.active[data-sf="의학"]{background:#e57373;border-color:#e57373;color:#fff}
+.sbj-chip.active[data-sf="생명바이오"]{background:#ce93d8;border-color:#ce93d8;color:#000}
+.sbj-chip.active[data-sf="금융"]{background:#ffb74d;border-color:#ffb74d;color:#000}
+.sbj-chip.active[data-sf="경제"]{background:#4db6ac;border-color:#4db6ac;color:#000}
+.sbj-chip.active[data-sf="경영"]{background:#f06292;border-color:#f06292;color:#fff}
+.sbj-ttype{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid #2d3249;background:transparent;color:#6b7290;transition:all .15s;font-family:inherit}
+.sbj-ttype.active{background:rgba(224,123,26,.18);border-color:#E07B1A;color:#E07B1A}
+.sbj-card{background:#1a1d27;border:1px solid #2d3249;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:7px;transition:border-color .15s,transform .1s;position:relative;overflow:hidden}
+.sbj-card:hover{border-color:rgba(224,123,26,.4);transform:translateY(-1px)}
+.sbj-card-bar{position:absolute;left:0;top:0;bottom:0;width:3px}
+.sbj-card[data-sf="화학"] .sbj-card-bar{background:#4fc3f7}
+.sbj-card[data-sf="약학보건"] .sbj-card-bar{background:#81c784}
+.sbj-card[data-sf="의학"] .sbj-card-bar{background:#e57373}
+.sbj-card[data-sf="생명바이오"] .sbj-card-bar{background:#ce93d8}
+.sbj-card[data-sf="금융"] .sbj-card-bar{background:#ffb74d}
+.sbj-card[data-sf="경제"] .sbj-card-bar{background:#4db6ac}
+.sbj-card[data-sf="경영"] .sbj-card-bar{background:#f06292}
+.sbj-tag-f{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.sbj-card[data-sf="화학"] .sbj-tag-f{background:rgba(79,195,247,.15);color:#4fc3f7}
+.sbj-card[data-sf="약학보건"] .sbj-tag-f{background:rgba(129,199,132,.15);color:#81c784}
+.sbj-card[data-sf="의학"] .sbj-tag-f{background:rgba(229,115,115,.15);color:#e57373}
+.sbj-card[data-sf="생명바이오"] .sbj-tag-f{background:rgba(206,147,216,.15);color:#ce93d8}
+.sbj-card[data-sf="금융"] .sbj-tag-f{background:rgba(255,183,77,.15);color:#ffb74d}
+.sbj-card[data-sf="경제"] .sbj-tag-f{background:rgba(77,182,172,.15);color:#4db6ac}
+.sbj-card[data-sf="경영"] .sbj-tag-f{background:rgba(240,98,146,.15);color:#f06292}
+.sbj-tag-t{font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.06);color:#6b7290}
+.sbj-tag-t.핵심{background:rgba(224,123,26,.12);color:#E07B1A}
+.sbj-tag-t.심화{background:rgba(100,200,255,.1);color:#5ac8fa}
+.sbj-tag-t.연계{background:rgba(100,255,180,.1);color:#5aed9f}
+.sbj-tag-t.공동{background:rgba(200,100,255,.1);color:#c87eff}
+.sbj-text{font-size:13px;color:#e8eaf0;line-height:1.55}
+.sbj-text mark{background:rgba(224,123,26,.35);color:#f5a54a;border-radius:3px;padding:0 1px}
 </style>
 
 </head>
@@ -603,7 +649,7 @@ body.locked>*:not(#lockScreen){display:none!important}
       <div class="lp-logo">📚 심화탐구주제검색기</div>
       <div style="display:flex;align-items:center;gap:10px">
         <span style="background:rgba(46,125,50,.25);border:1px solid rgba(46,125,50,.5);color:#81c784;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;font-family:'Malgun Gothic',sans-serif">● 서비스 운영 중</span>
-        <a href="mailto:studyjinrojinhak@gmail.com" style="background:rgba(224,123,26,.2);border:1px solid rgba(224,123,26,.4);color:#E07B1A;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;text-decoration:none">문의하기</a>
+        <a href="#" id="mailLink1" style="background:rgba(224,123,26,.2);border:1px solid rgba(224,123,26,.4);color:#E07B1A;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;font-family:'Malgun Gothic',sans-serif;text-decoration:none">문의하기</a>
       </div>
     </div>
     <div class="lp-hero">
@@ -686,9 +732,9 @@ body.locked>*:not(#lockScreen){display:none!important}
             <div style="color:rgba(255,255,255,.4);font-size:10px;margin-top:1px">맥에듀테크 (MacEduTech) · 김휘창입시컨설팅</div>
           </div>
         </div>
-        <a href="mailto:studyjinrojinhak@gmail.com" style="display:flex;align-items:center;gap:6px;background:rgba(224,123,26,.15);border:1px solid rgba(224,123,26,.3);border-radius:20px;padding:6px 14px;text-decoration:none">
+        <a href="#" id="mailLink2" style="display:flex;align-items:center;gap:6px;background:rgba(224,123,26,.15);border:1px solid rgba(224,123,26,.3);border-radius:20px;padding:6px 14px;text-decoration:none">
           <span style="font-size:13px">📧</span>
-          <span style="color:#E07B1A;font-size:11px;font-weight:700">studyjinrojinhak@gmail.com</span>
+          <span style="color:#E07B1A;font-size:11px;font-weight:700"><span id="contactMailText" style="color:#E07B1A;font-size:11px;font-weight:700"></span></span>
         </a>
       </div>
       <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px"></div>
@@ -700,7 +746,7 @@ body.locked>*:not(#lockScreen){display:none!important}
   </div>
 </div>
 <div class="hdr">
-  <div><h1>&#128218; 합격생의 심화탐구보고서 주제 검색기</h1><div class="sub">맥에듀테크 · 김휘창입시컨설팅</div></div>
+  <div><h1>📚 합격생의 심화탐구보고서 주제 검색기</h1><div class="sub">맥에듀테크 · 김휘창입시컨설팅</div></div>
   <div class="badge" id="tot">로딩중...</div>
 </div>
 
@@ -714,53 +760,74 @@ body.locked>*:not(#lockScreen){display:none!important}
   </button>
   <div class="manual-body" id="manualBody">
     <div class="manual-inner">
-      <div class="manual-step">
-        <div class="manual-step-num">1</div>
-        <div class="manual-step-body">
-          <div class="manual-step-title">🔍 심화탐구 주제 검색</div>
+      <!-- 1행: 4개 -->
+      <div class="manual-grid">
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#4fc3f7,#29b6f6)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">1</div>
+            <div class="manual-step-title">🔍 심화탐구 주제 검색</div>
+          </div>
           <div class="manual-step-desc">상단 검색창에 <b style="color:#ffe57f">키워드</b>를 입력하면 제목·대학·학과·교과목 전체에서 즉시 필터링됩니다. 예) "면역", "미적분", "기후변화"<br>각 칼럼 헤더 아래 입력창으로 <b style="color:#ffe57f">대학·학과·주제·교과목·활동유형·탐구방법</b>을 따로 세부 필터할 수 있습니다. 여러 칼럼 동시 필터링도 가능합니다.</div>
         </div>
-      </div>
-      <div class="manual-step">
-        <div class="manual-step-num">2</div>
-        <div class="manual-step-body">
-          <div class="manual-step-title">⭐ 즐겨찾기 추가</div>
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#f5c518,#ffa000)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">2</div>
+            <div class="manual-step-title">⭐ 즐겨찾기 추가</div>
+          </div>
           <div class="manual-step-desc">마음에 드는 주제 행 맨 왼쪽의 <b style="color:#ffe57f">☆ 별 버튼</b>을 클릭하면 즐겨찾기에 저장됩니다. 다시 클릭하면 해제됩니다.<br>상단 <b style="color:#ffe57f">⭐ 즐겨찾기 탭</b>에서 저장된 목록을 카드 형식으로 확인하고, AI 보고서 생성도 이 탭에서 시작합니다. 여러 주제를 미리 저장해 두세요.</div>
         </div>
-      </div>
-      <div class="manual-step">
-        <div class="manual-step-num">3</div>
-        <div class="manual-step-body">
-          <div class="manual-step-title">🔑 Claude API 키 설정</div>
-          <div class="manual-step-desc">즐겨찾기 탭 상단의 <b style="color:#ffe57f">🔑 API 키 설정</b> 버튼을 클릭합니다. <b style="color:#ffe57f">console.anthropic.com</b>에서 회원가입 후 API 키(<code style="background:rgba(0,0,0,.2);padding:1px 5px;border-radius:3px;font-size:10px">sk-ant-...</code>)를 발급받아 입력하세요.<br>키는 이 세션에서만 사용되며 외부에 저장되지 않습니다. 키 입력 후 🔍 확인 버튼으로 정상 여부를 테스트할 수 있습니다.</div>
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#ce93d8,#ab47bc)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">3</div>
+            <div class="manual-step-title">🔑 Claude API 키 설정</div>
+          </div>
+          <div class="manual-step-desc">즐겨찾기 탭 상단의 <b style="color:#ffe57f">🔑 API 키 설정</b> 버튼을 클릭합니다. <b style="color:#ffe57f">console.anthropic.com</b>에서 회원가입 후 API 키(<code style="background:rgba(0,0,0,.25);padding:1px 5px;border-radius:3px;font-size:10px">sk-ant-...</code>)를 발급받아 입력하세요.<br>키는 이 세션에서만 사용되며 외부에 저장되지 않습니다.</div>
         </div>
-      </div>
-      <div class="manual-step">
-        <div class="manual-step-num">4</div>
-        <div class="manual-step-body">
-          <div class="manual-step-title">🤖 AI 탐구보고서 자동 생성</div>
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#80cbc4,#26a69a)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">4</div>
+            <div class="manual-step-title">🤖 AI 탐구보고서 자동 생성</div>
+          </div>
           <div class="manual-step-desc">즐겨찾기 카드의 <b style="color:#ffe57f">🤖 AI 보고서 생성</b> 버튼을 클릭하면 4단계(서론→본론→결론→키워드·참고문헌)로 자동 작성됩니다. 약 30~60초 소요됩니다.<br>생성된 보고서는 <b style="color:#ffe57f">초안</b>으로만 활용하고, 자신만의 탐구 과정·데이터·해석을 추가해 완성도를 높이세요.</div>
         </div>
       </div>
-      <div class="manual-step">
-        <div class="manual-step-num">5</div>
-        <div class="manual-step-body">
-          <div class="manual-step-title">📄 PDF / 워드 저장</div>
+      <!-- 2행: 4개 -->
+      <div class="manual-grid">
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#ef9a9a,#e53935)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">5</div>
+            <div class="manual-step-title">📄 PDF / 워드 저장</div>
+          </div>
           <div class="manual-step-desc">AI 보고서 화면 상단 툴바의 <b style="color:#ffe57f">📄 PDF 저장</b>을 클릭하면 A4 형식으로 인쇄·저장됩니다. 표지·서론·본론·결론·참고문헌이 페이지별로 구분됩니다.<br><b style="color:#ffe57f">📋 워드/한글 복사</b>는 서식 포함 클립보드 복사로, Word·HWP에 붙여넣기하면 서식이 그대로 유지됩니다.</div>
         </div>
-      </div>
-      <div class="manual-step">
-        <div class="manual-step-num">6</div>
-        <div class="manual-step-body">
-          <div class="manual-step-title">🔥 인기 소재 & 교과목별 탐구</div>
-          <div class="manual-step-desc">상단 <b style="color:#ffe57f">🔥 인기 소재 TOP 20</b> 탭에서 전체·인문·자연 계열별로 가장 많이 등장한 탐구 주제 20선을 확인할 수 있습니다.<br><b style="color:#ffe57f">📋 교과목별 탐구</b> 탭에서는 수강 중인 교과목을 클릭하면 해당 교과목과 연계된 모든 탐구 주제가 자동 검색됩니다. 주제 발굴의 출발점으로 적극 활용하세요.</div>
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#ffb74d,#fb8c00)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">6</div>
+            <div class="manual-step-title">🔥 인기 소재 & 교과목별 탐구</div>
+          </div>
+          <div class="manual-step-desc">상단 <b style="color:#ffe57f">🔥 인기 소재 TOP 20</b> 탭에서 전체·인문·자연 계열별로 가장 많이 등장한 탐구 주제 20선을 확인할 수 있습니다.<br><b style="color:#ffe57f">📋 교과목별 탐구</b> 탭에서는 수강 중인 교과목을 클릭하면 해당 교과목과 연계된 모든 탐구 주제가 자동 검색됩니다.</div>
         </div>
-      </div>
-      <div class="manual-step">
-        <div class="manual-step-num">7</div>
-        <div class="manual-step-body">
-          <div class="manual-step-title">📊 주제 빈도 분석 (워드클라우드)</div>
-          <div class="manual-step-desc"><b style="color:#ffe57f">인문/자연계열</b> 버튼 선택 후 <b style="color:#ffe57f">학과 드롭다운</b>에서 원하는 학과를 고르면, 그 학과 합격생들이 자주 사용한 심화탐구 키워드가 워드클라우드로 시각화됩니다.<br><b style="color:#ffe57f">글자가 클수록 빈도 높은 핵심 키워드</b>입니다. 단어 클릭 시 전체 검색 탭으로 자동 이동합니다. 하단 빈도 순위 표에서 상위 30개 키워드와 비율을 순서대로 확인하세요.</div>
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#a5d6a7,#43a047)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">7</div>
+            <div class="manual-step-title">📊 주제 빈도 분석 (워드클라우드)</div>
+          </div>
+          <div class="manual-step-desc"><b style="color:#ffe57f">인문/자연계열</b> 버튼 선택 후 <b style="color:#ffe57f">학과 드롭다운</b>에서 원하는 학과를 고르면, 그 학과 합격생들이 자주 사용한 심화탐구 키워드가 워드클라우드로 시각화됩니다.<br><b style="color:#ffe57f">글자가 클수록 빈도 높은 핵심 키워드</b>입니다. 하단 빈도 순위 표에서 상위 30개 키워드를 확인하세요.</div>
+        </div>
+        <div class="manual-step">
+          <div class="manual-step-bar" style="background:linear-gradient(90deg,#E07B1A,#f5a54a)"></div>
+          <div class="manual-step-head">
+            <div class="manual-step-num">8</div>
+            <div class="manual-step-title">📚 생기부 주제 검색기</div>
+          </div>
+          <div class="manual-step-desc">상단 <b style="color:#ffe57f">📚 생기부 주제</b> 탭에서 세종교육청 핵심키워드 기반의 생기부 활동 주제를 검색합니다.<br><b style="color:#ffe57f">화학·약학/보건·의학·생명바이오·금융·경제·경영</b> 7개 분야, <b style="color:#ffe57f">핵심 대주제·심화·연계·공동교육과정</b> 유형별로 필터링하여 생기부 주제 발굴에 활용하세요.</div>
         </div>
       </div>
       <div class="manual-tip">
@@ -777,23 +844,24 @@ body.locked>*:not(#lockScreen){display:none!important}
 
 <!-- 메인 탭 -->
 <div class="main-tabs">
-  <div class="main-tab on" id="mt-search" onclick="switchMain('search')">&#128269; 전체 검색</div>
+  <div class="main-tab on" id="mt-search" onclick="switchMain('search')">🔍 전체 검색</div>
   <div class="main-tab" id="mt-top20" onclick="switchMain('top20')">&#128293; 인기 소재 TOP 20</div>
   <div class="main-tab" id="mt-subj" onclick="switchMain('subj')">&#128221; 교과목별 탐구</div>
   <div class="main-tab" id="mt-wc" onclick="switchMain('wc')">📊 주제 빈도 분석</div>
   <div class="main-tab" id="mt-fav" onclick="switchMain('fav')">&#11088; 즐겨찾기 <span id="fav-tab-cnt" style="background:rgba(245,197,24,.3);color:#ffe57f;border-radius:10px;padding:0 7px;font-size:11px;margin-left:2px;display:none">0</span></div>
+  <div class="main-tab" id="mt-sbj" onclick="switchMain('sbj')">📚 생기부 주제</div>
 </div>
 
 <!-- ── 검색 패널 ── -->
 <div class="panel on" id="panel-search">
   <div class="bar">
-    <div class="sbox"><span>&#128269;</span><input id="si" type="text" placeholder="주제, 대학, 학과, 교과목 검색..."></div>
+    <div class="sbox"><span>🔍</span><input id="si" type="text" placeholder="주제, 대학, 학과, 교과목 검색..."></div>
     <div class="cnt" id="cnt">0건</div>
     <button class="breset" id="breset">&#128260; 초기화</button>
   </div>
   <div class="cat-tabs">
     <div class="cat-tab on" id="ct-all" onclick="setCat('all')">전체 <span class="tn" id="tn-all"></span></div>
-    <div class="cat-tab" id="ct-hum" onclick="setCat('hum')">&#128218; 인문계열 <span class="tn" id="tn-hum"></span></div>
+    <div class="cat-tab" id="ct-hum" onclick="setCat('hum')">📚 인문계열 <span class="tn" id="tn-hum"></span></div>
     <div class="cat-tab" id="ct-sci" onclick="setCat('sci')">&#9883; 자연계열 <span class="tn" id="tn-sci"></span></div>
   </div>
   <div class="spbar">
@@ -829,7 +897,7 @@ body.locked>*:not(#lockScreen){display:none!important}
       <div class="stat-body">
         <div class="mini-tabs">
           <div class="mini-tab on" onclick="showTop20('all',this)">&#128202; 전체</div>
-          <div class="mini-tab hum" onclick="showTop20('hum',this)">&#128218; 인문계열</div>
+          <div class="mini-tab hum" onclick="showTop20('hum',this)">📚 인문계열</div>
           <div class="mini-tab sci" onclick="showTop20('sci',this)">&#9883; 자연계열</div>
         </div>
         <div class="top20-grid" id="top20-grid"></div>
@@ -846,7 +914,7 @@ body.locked>*:not(#lockScreen){display:none!important}
       <div class="stat-body">
         <div class="mini-tabs">
           <div class="mini-tab on" onclick="showSubj('all',this)">&#128202; 전체</div>
-          <div class="mini-tab hum" onclick="showSubj('hum',this)">&#128218; 인문계열</div>
+          <div class="mini-tab hum" onclick="showSubj('hum',this)">📚 인문계열</div>
           <div class="mini-tab sci" onclick="showSubj('sci',this)">&#9883; 자연계열</div>
         </div>
         <div class="subj-grid" id="subj-grid"></div>
@@ -909,6 +977,48 @@ body.locked>*:not(#lockScreen){display:none!important}
       <div class="fav-grid" id="fav-grid"></div>
     </div>
   </div>
+</div>
+
+<div class="panel" id="panel-sbj" style="background:#0f1117;overflow-y:auto">
+  <div style="background:linear-gradient(135deg,#1a1d27,#0f1117);border-bottom:1px solid #2d3249;padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <span style="font-size:22px">📚</span>
+    <div>
+      <div style="font-size:16px;font-weight:700;color:#e8eaf0">생기부 주제 검색기</div>
+      <div style="font-size:11px;color:#6b7290;margin-top:2px">핵심키워드를 활용한 고교생활 디자인</div>
+    </div>
+    <div style="margin-left:auto;background:rgba(224,123,26,.15);border:1px solid rgba(224,123,26,.3);color:#E07B1A;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px">총 <span id="sbj-total">0</span>개 주제</div>
+  </div>
+  <div style="padding:12px 20px;background:#1a1d27;border-bottom:1px solid #2d3249;flex-shrink:0;display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;gap:8px;align-items:center">
+      <div style="flex:1;position:relative">
+        <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#6b7290;font-size:13px">🔍</span>
+        <input id="sbj-kw" type="text" placeholder="키워드로 주제 검색... (예: 유전자, 금리, ESG)"
+          style="width:100%;background:#22263a;border:1px solid #2d3249;border-radius:8px;padding:9px 12px 9px 36px;color:#e8eaf0;font-family:inherit;font-size:13px;outline:none"
+          oninput="sbjRender()" onfocus="this.style.borderColor='#E07B1A'" onblur="this.style.borderColor='#2d3249'">
+      </div>
+      <div style="background:#22263a;border:1px solid #2d3249;border-radius:8px;padding:9px 14px;font-size:12px;color:#9aa0b8;white-space:nowrap"><span id="sbj-cnt" style="color:#E07B1A;font-weight:700">0</span>건</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+      <span style="font-size:11px;color:#6b7290;margin-right:2px">분야</span>
+      <button class="sbj-chip active" data-sf="전체" onclick="sbjSetF(this,'전체')">전체</button>
+      <button class="sbj-chip" data-sf="화학" onclick="sbjSetF(this,'화학')">🧪 화학</button>
+      <button class="sbj-chip" data-sf="약학보건" onclick="sbjSetF(this,'약학보건')">💊 약학/보건</button>
+      <button class="sbj-chip" data-sf="의학" onclick="sbjSetF(this,'의학')">🩺 의학</button>
+      <button class="sbj-chip" data-sf="생명바이오" onclick="sbjSetF(this,'생명바이오')">🧪 생명/바이오</button>
+      <button class="sbj-chip" data-sf="금융" onclick="sbjSetF(this,'금융')">💰 금융</button>
+      <button class="sbj-chip" data-sf="경제" onclick="sbjSetF(this,'경제')">📈 경제</button>
+      <button class="sbj-chip" data-sf="경영" onclick="sbjSetF(this,'경영')">🏢 경영</button>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+      <span style="font-size:11px;color:#6b7290;margin-right:2px">유형</span>
+      <button class="sbj-ttype active" data-st="전체" onclick="sbjSetT(this,'전체')">전체</button>
+      <button class="sbj-ttype" data-st="핵심" onclick="sbjSetT(this,'핵심')">핵심 대주제</button>
+      <button class="sbj-ttype" data-st="심화" onclick="sbjSetT(this,'심화')">심화</button>
+      <button class="sbj-ttype" data-st="연계" onclick="sbjSetT(this,'연계')">연계·확장</button>
+      <button class="sbj-ttype" data-st="공동" onclick="sbjSetT(this,'공동')">공동교육과정</button>
+    </div>
+  </div>
+  <div id="sbj-results" style="padding:14px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px;align-content:start"></div>
 </div>
 
 
@@ -999,7 +1109,7 @@ document.getElementById('tn-sci').textContent=sci_cnt.toLocaleString();
 
 /* ── 메인 탭 ── */
 function switchMain(key){
-  ['search','top20','subj','wc','fav'].forEach(function(k){
+  ['search','top20','subj','wc','fav','sbj'].forEach(function(k){
     document.getElementById('panel-'+k).classList.toggle('on',k===key);
     document.getElementById('mt-'+k).classList.toggle('on',k===key);
   });
@@ -1007,6 +1117,7 @@ function switchMain(key){
   if(key==='subj') showSubj('all', document.querySelector('#panel-subj .mini-tab'));
   if(key==='fav') renderFavPanel();
   if(key==='wc') wcInit();
+  if(key==='sbj') sbjRender();
 }
 
 /* ── 계열 탭 ── */
@@ -2815,7 +2926,7 @@ document.getElementById('tn-sci').textContent=sci_cnt.toLocaleString();
 
 /* ── 메인 탭 ── */
 function switchMain(key){
-  ['search','top20','subj','wc','fav'].forEach(function(k){
+  ['search','top20','subj','wc','fav','sbj'].forEach(function(k){
     document.getElementById('panel-'+k).classList.toggle('on',k===key);
     document.getElementById('mt-'+k).classList.toggle('on',k===key);
   });
@@ -2823,6 +2934,7 @@ function switchMain(key){
   if(key==='subj') showSubj('all', document.querySelector('#panel-subj .mini-tab'));
   if(key==='fav') renderFavPanel();
   if(key==='wc') wcInit();
+  if(key==='sbj') sbjRender();
 }
 
 /* ── 계열 탭 ── */
@@ -3712,11 +3824,322 @@ function copyForWord(){
   win.document.write('<div style="margin-top:48px">');
   win.document.write(el.innerHTML);
   win.document.write('</div></body></html>');
-  win.document.close();win.focus();
-  var btn=document.getElementById('ai-btn-copy');
-  var orig=btn?btn.textContent:'';
-  if(btn){btn.textContent='✓ 새 창 열림';btn.style.background='#2e7d32';}
-  setTimeout(function(){if(btn){btn.textContent=orig;btn.style.background='';}},4000);
+  win.document.close();
+  setTimeout(function(){win.focus();},300);
+}
+
+</script>
+<script>
+(function(){
+  var a='studyjinrojinhak';
+  var b='gmail';
+  var c='com';
+  var em=a+'@'+b+'.'+c;
+  var ml='mail'+'to:'+em;
+  var l1=document.getElementById('mailLink1');
+  var l2=document.getElementById('mailLink2');
+  var t=document.getElementById('contactMailText');
+  if(l1)l1.href=ml;
+  if(l2)l2.href=ml;
+  if(t)t.textContent=em;
+})();
+
+var SBJ_F='전체',SBJ_T='전체';
+var SBJ_FL={화학:'화학',약학보건:'약학/보건',의학:'의학',생명바이오:'생명/바이오',금융:'금융',경제:'경제',경영:'경영'};
+var SBJ_TL={핵심:'핵심 대주제',심화:'심화',연계:'연계·확장',공동:'공동교육과정'};
+var SBJ_DATA=[
+{f:'화학',t:'핵심',text:'주기율표가 만들어지는 과정을 정리한 보고서'},
+{f:'화학',t:'핵심',text:'수소의 청정성 범위 발표'},
+{f:'화학',t:'핵심',text:'질산태질소와 pH 분석을 통한 농약이 토양 환경에 주는 영향 분석'},
+{f:'화학',t:'핵심',text:'자외선 차단제 보고서 작성'},
+{f:'화학',t:'핵심',text:'화학반응의 반응속도 탐구'},
+{f:'화학',t:'핵심',text:'화학 요법은 어떻게 작용하는가? - 제1차 세계대전과 연계 설명'},
+{f:'화학',t:'핵심',text:'이온 결합 및 공유 결합의 개념과 활용에 대해서 조사'},
+{f:'화학',t:'핵심',text:'주방용품에서 화학 작용이 일어나는 사례 조사'},
+{f:'화학',t:'핵심',text:'염화칼슘 문제점과 친환경 제설제 탐구'},
+{f:'화학',t:'핵심',text:'셀레늄과 치료 - 화학 분야 탐구'},
+{f:'화학',t:'핵심',text:'산성비의 수소이온농도 비율을 지수법칙으로 계산'},
+{f:'화학',t:'핵심',text:'역사를 바꾼 18가지 화학 이야기를 읽고 페놀의 구조와 활용 방안 및 문제점 조사'},
+{f:'화학',t:'핵심',text:'전쟁 속의 화학 - 과학융합 주제로 보고서 작성 발표'},
+{f:'화학',t:'핵심',text:'전기 도금 실험 계획 및 진행, 화학반응속도에 미치는 촉매의 역할에 관한 실험'},
+{f:'화학',t:'핵심',text:'합성 플라스틱 생분해 내용 요약 후 난분해성 플라스틱이 무엇인지 조사 발표'},
+{f:'화학',t:'핵심',text:'환경 호르몬을 주제로 보고서 작성, 생분해성 플라스틱이 대중화되지 않는 이유 탐구'},
+{f:'화학',t:'핵심',text:'미세 플라스틱이 수중 생물에게 미치는 영향 탐구'},
+{f:'화학',t:'핵심',text:'미생물을 활용한 플라스틱 개발 사례와 사용 가능한 분야 조사'},
+{f:'화학',t:'핵심',text:'열가소성과 열경화성 플라스틱의 차이점'},
+{f:'화학',t:'핵심',text:'탄소섬유강화 플라스틱 재활용 방법 연구'},
+{f:'화학',t:'핵심',text:'바이오플라스틱의 제조 방법과 환경적 이점'},
+{f:'화학',t:'핵심',text:'플라스틱 오염 문제와 해양 생태계에 미치는 영향'},
+{f:'화학',t:'핵심',text:'플라스틱 분해를 촉진하는 미생물의 역할'},
+{f:'화학',t:'핵심',text:'3D 프린팅에 사용되는 플라스틱 소재 연구'},
+{f:'화학',t:'연계',text:'화장품의 화학 성분이 생물에 미치는 위험성을 주제로 융합 프로젝트'},
+{f:'화학',t:'연계',text:'생분해성 플라스틱을 구성하는 물질의 합성 탐구 보고서'},
+{f:'화학',t:'연계',text:'카페인 추출 실험'},
+{f:'화학',t:'연계',text:'용존 산소 실험'},
+{f:'화학',t:'연계',text:'이산화탄소 농도에 따른 식물 성장 비교 실험'},
+{f:'화학',t:'연계',text:'아이오딘 적정, 분광광도계를 이용한 흡광도 측정'},
+{f:'화학',t:'연계',text:'아세트살리실산 합성 실험'},
+{f:'화학',t:'공동',text:'항히스타민제와 스테로이드의 작용 기전과 피부에 미치는 영향 보고서 - 화학 생명 심화탐구반'},
+{f:'화학',t:'공동',text:'다양한 화학 분야들에 대한 각 기술현황 보고서 작성 - 화학의 원리와 응용 탐구반'},
+{f:'화학',t:'공동',text:'무수황산구리 수화 엔탈피 실험 및 보고서 작성 - 화학실험반'},
+{f:'화학',t:'심화',text:'창의융합캠프 탄소화합물의 결합적 규칙과 구조 탐색'},
+{f:'화학',t:'심화',text:'탄소중립실천포인트제 운영'},
+{f:'화학',t:'심화',text:'대학 학과 체험을 통해 다양한 화학 반응에 대한 이해 참여'},
+{f:'화학',t:'심화',text:'유기촉매 활용 비대칭 콘쥬게이트 첨가-고리화 형성 반응 연구 심화 탐구'},
+{f:'화학',t:'심화',text:'pH 인디케이터 만들기 - 천연 물질(양배추)을 사용하여 다양한 용액의 산성도를 테스트'},
+{f:'화학',t:'심화',text:'비누 만들기 워크숍 - 지방산과 알칼리를 반응시켜 비누를 만드는 과정 체험'},
+{f:'화학',t:'심화',text:'결정 성장 실험 - 소금이나 설탕을 사용하여 아름다운 결정을 성장시키는 활동'},
+{f:'화학',t:'심화',text:'분자 모델 만들기 - 다양한 화합물의 분자 모델을 만들어 화학 구조 이해'},
+{f:'약학보건',t:'핵심',text:'약물중독 예방교육 연계활동'},
+{f:'약학보건',t:'핵심',text:'약용 식물의 차이 발표'},
+{f:'약학보건',t:'핵심',text:'투약 오류 주제로 보고서 작성'},
+{f:'약학보건',t:'핵심',text:'신약 개발을 주제로 탐구, 항생제 개발 과정을 실례로 들어 발표'},
+{f:'약학보건',t:'핵심',text:'청소년 각성제 남용에 대한 설문조사 후 카드뉴스 제작'},
+{f:'약학보건',t:'핵심',text:'암 예방 및 치료 약물 연구 동향 탐구'},
+{f:'약학보건',t:'핵심',text:'자율신경계 약물 기전 탐구'},
+{f:'약학보건',t:'핵심',text:'충수염 항생제 치료 논문 분석'},
+{f:'약학보건',t:'핵심',text:'다양한 항생제 내성 기전 심층 탐구 및 해결 방안 탐구'},
+{f:'약학보건',t:'핵심',text:'시트러스 과일의 항산화 활성화 비교 분석'},
+{f:'약학보건',t:'핵심',text:'언어재활치료와 뇌 가소성에 대한 패임랩 실시'},
+{f:'약학보건',t:'핵심',text:'교통사고 실태 분석 및 간호사의 노인 교통사고 환자에 대한 간호활동'},
+{f:'약학보건',t:'핵심',text:'한국과 일본의 코로나 조기대응 비교 분석'},
+{f:'약학보건',t:'핵심',text:'4차 산업혁명과 간호 인적 자원 개발의 전망과 과제'},
+{f:'약학보건',t:'핵심',text:'감염병대응교육 코로나예방 후속활동'},
+{f:'약학보건',t:'핵심',text:'질병의 1차, 2차, 3차 예방 탐구'},
+{f:'약학보건',t:'핵심',text:'올바른 마스크 착용 캠페인, 미세먼지로 인한 건강 문제 탐구 및 천연 이끼 공기청정기 만들기'},
+{f:'약학보건',t:'연계',text:'협심증 탐구발표 - 공중보건의 기초반'},
+{f:'약학보건',t:'연계',text:'간호사되기반, 보건의료반 이수'},
+{f:'약학보건',t:'연계',text:'열대의학과 국제개발협력반 이수'},
+{f:'약학보건',t:'연계',text:'점자 독해에 용이한 항균필름 연구'},
+{f:'약학보건',t:'연계',text:'ELISA 검출법에 대해 노로바이러스를 활용하여 탐구'},
+{f:'약학보건',t:'연계',text:'비타민C 적정 실험'},
+{f:'약학보건',t:'연계',text:'혈액형 판정실험'},
+{f:'약학보건',t:'연계',text:'산염기 중화 적정의 정량적 이해 실험'},
+{f:'약학보건',t:'연계',text:'세포 크기 측정 및 초파리를 이용한 유전법칙 증명 실험'},
+{f:'약학보건',t:'연계',text:'손소독제의 살균 능력 알아보는 실험 설계'},
+{f:'약학보건',t:'심화',text:'생명윤리 등 생명과학과 간호사에 대한 주제로 탐구'},
+{f:'약학보건',t:'심화',text:'수술실 CCTV 설치문제 - 보건과 윤리 탐구'},
+{f:'약학보건',t:'심화',text:'코로나19 임상연구와 생명윤리, 산소 분리막을 포함하는 산소공급장치'},
+{f:'약학보건',t:'심화',text:'의료법의 문제에 대해 분석 - 보건과 법 탐구'},
+{f:'약학보건',t:'심화',text:'간호법 제정 탐구'},
+{f:'약학보건',t:'심화',text:'형광 현상을 나타내는 화합물(Fluorochrome) 조사'},
+{f:'약학보건',t:'심화',text:'과학 융합 프로젝트에서 제약 분야 특허권 조사'},
+{f:'의학',t:'핵심',text:'암의 정의 및 종류, 정상세포와 암세포와의 관계, 유전자 p53과 DNA 설명'},
+{f:'의학',t:'핵심',text:'생명공학 기술을 활용한 난치병 치료 소개'},
+{f:'의학',t:'핵심',text:'농도에 따른 탄산과 당의 위험성 주제 탐구'},
+{f:'의학',t:'핵심',text:'지속가능한발전 연관 우울증 관련 발표'},
+{f:'의학',t:'핵심',text:'연명 치료, 호스피스 관련 서평 작성'},
+{f:'의학',t:'핵심',text:'소음성 난청 탐구'},
+{f:'의학',t:'핵심',text:'코로나 블루, 낙태 관련 기사 작성'},
+{f:'의학',t:'핵심',text:'원격 의료 관련 발표'},
+{f:'의학',t:'핵심',text:'조직 이식의 문제점 및 규제 방안 탐구'},
+{f:'의학',t:'핵심',text:'단일클론항체 생산 과정에서 사용되는 HAT배지의 특성 소개'},
+{f:'의학',t:'핵심',text:'병원체의 종류 변형 프라이온 구조 발현 기작 탐구'},
+{f:'의학',t:'핵심',text:'의료 분야 문제 분석 및 토론 - 의료 격차'},
+{f:'의학',t:'핵심',text:'지역별 의료시스템 격차 탐구'},
+{f:'의학',t:'핵심',text:'의약학의 측면에서 보는 소수자들에 대한 차별과 가시화 여부 탐구'},
+{f:'의학',t:'핵심',text:'난민 의료 지원 관련 발표'},
+{f:'의학',t:'핵심',text:'코로나 시대의 사회적 약자의 건강권과 삶 조사'},
+{f:'의학',t:'핵심',text:'유전자 재조합 기술을 활용한 인슐린 생산 과정 소개'},
+{f:'의학',t:'핵심',text:'유전자 가위의 상용성 글쓰기'},
+{f:'의학',t:'핵심',text:'유전자 조작을 통한 재생산 찬반 토론'},
+{f:'의학',t:'핵심',text:'유전자 염기서열의 데이터 통계적 접근'},
+{f:'의학',t:'핵심',text:'유전자침묵기술을 이용한 온도촉각 감지 수용체 탐색 연구 탐구'},
+{f:'의학',t:'핵심',text:'의학 기술의 발전에 따른 윤리 문제 캠페인'},
+{f:'의학',t:'핵심',text:'의료 한계 극복 방안 탐구'},
+{f:'의학',t:'핵심',text:'연명의료법 토론'},
+{f:'의학',t:'핵심',text:'인간공학 중 시선추적 기술 및 알고리즘 탐구'},
+{f:'의학',t:'핵심',text:'의료기술의 역사와 시스템의 발전 탐구발표 후 미래 의료체계의 발전 방향 토론'},
+{f:'의학',t:'핵심',text:'정신과 의사로서의 태도: 공감과 분석 사이 발표'},
+{f:'의학',t:'핵심',text:'충치의 발생 과정과 메커니즘 탐구'},
+{f:'의학',t:'핵심',text:'구강 마이크로바이옴, 구강미생물 감염성질환 탐구'},
+{f:'의학',t:'핵심',text:'입 속의 산과 염기를 주제로 pH와 충치가 생기는 조건을 입안의 액성과 연결 지어 설명문 작성'},
+{f:'의학',t:'핵심',text:'사람의 치아는 왜 두 번만 날까? 탐구 및 발표'},
+{f:'의학',t:'핵심',text:'흡연과 구강 건강의 관계, 노화가 구강과 치아에 미치는 영향 탐구 및 발표'},
+{f:'의학',t:'연계',text:'암 희귀질환 의료 보험의 딜레마 탐구'},
+{f:'의학',t:'연계',text:'10년간 보험등재율 변화 데이터 수치 분석을 통해 보험급여 제도분석'},
+{f:'의학',t:'연계',text:'의학 분야 인공신경망 활용 탐구'},
+{f:'의학',t:'연계',text:'미토콘드리아 유전자 편집 탐구'},
+{f:'의학',t:'연계',text:'암의 Passenger Mutation, 암의 예후 및 암 경험자의 사회 복귀 연구'},
+{f:'의학',t:'연계',text:'AI 기술과 전염병 대응 보고서'},
+{f:'의학',t:'연계',text:'기후변화와 인류 건강의 관계분석 및 대책 수립 발표'},
+{f:'의학',t:'연계',text:'한국의 높은 항생제 내성에 문제의식 갖고 탐구 및 인식제고 캠페인'},
+{f:'의학',t:'연계',text:'장기기증 인식개선 프로젝트'},
+{f:'의학',t:'연계',text:'코로나19와 미래사회 융합학술프로젝트 (국내 의료체계, 바이러스 변이 재조합 등)'},
+{f:'의학',t:'심화',text:'DNA추출, 드라이아이스 실험, 아스피린 합성실험, 영지버섯 항산화 활성 실험'},
+{f:'의학',t:'심화',text:'알코올 발효 실험'},
+{f:'의학',t:'심화',text:'카페인 추출 실험과 카페인의 부작용 관련 보고서 작성'},
+{f:'생명바이오',t:'핵심',text:'학교생태지도 만들기 활동'},
+{f:'생명바이오',t:'핵심',text:'천연살충제를 제작 후 해충에게 살포하여 효과를 알아보는 실험설계'},
+{f:'생명바이오',t:'핵심',text:'산불 문제 해결을 위한 다양한 노력과 실천 방안을 모색하는 보고서 작성, 발표활동'},
+{f:'생명바이오',t:'핵심',text:'아마존 밀림 파괴와 연결된 환경문제 보고서 작성'},
+{f:'생명바이오',t:'핵심',text:'동물 가축화 관련 신문기사 작성 및 신문 제작, 과학 논평 쓰기'},
+{f:'생명바이오',t:'핵심',text:'먹이에 따른 동물 소화기관의 차이를 주제로 탐구보고서 발표'},
+{f:'생명바이오',t:'핵심',text:'소화제의 소화효과 탐구 실험'},
+{f:'생명바이오',t:'핵심',text:'고엽제의 성분과 인체 피해 조사'},
+{f:'생명바이오',t:'핵심',text:'GFP의 생명공학적 활용 및 원리 심화탐구'},
+{f:'생명바이오',t:'핵심',text:'인공 세포막을 이용한 투석의 원리 이해 실험'},
+{f:'생명바이오',t:'핵심',text:'바이오 신소재의 종류 개발, 바이오연료 등 대체 에너지 탐구'},
+{f:'생명바이오',t:'핵심',text:'바이오 융합 공학을 주제로 탐구 보고서 작성'},
+{f:'생명바이오',t:'핵심',text:'바이오 해커는 바이오 산업 발전에 바람직한가 토론'},
+{f:'생명바이오',t:'핵심',text:'칼락토스혈증 안내서 제작 및 유전자 가위 발표'},
+{f:'생명바이오',t:'핵심',text:'인슐린을 만드는 세균 기사를 읽고 유전자 재조합 관련 탐구 보고서 작성'},
+{f:'생명바이오',t:'핵심',text:'식물성 가죽 기술 탐구, 균류의 재발견 보고서 작성'},
+{f:'생명바이오',t:'핵심',text:'신종 바이러스 출현에 따른 미래 사회의 변화와 대응전략 - 코로나19 기사 분석'},
+{f:'생명바이오',t:'핵심',text:'바이러스가 전파되는 과정을 종간장벽 개념을 활용하여 설명'},
+{f:'생명바이오',t:'핵심',text:'장내 미생물과 유익균을 증식하는 방법을 주제로 자율탐구'},
+{f:'생명바이오',t:'핵심',text:'아데닌 염기교정 유전자가위 소개'},
+{f:'생명바이오',t:'핵심',text:'GMO 식품의 안전성을 주제로 보고서'},
+{f:'생명바이오',t:'핵심',text:'유전자 가위를 주제로 논문 학술자료 탐구 보고서 작성'},
+{f:'생명바이오',t:'핵심',text:'DNA, RNA의 공통점과 차이점 탐구'},
+{f:'생명바이오',t:'핵심',text:'하디-바인베르크 법칙 탐구'},
+{f:'생명바이오',t:'연계',text:'코로나 시대, 바이오기획 전문가로 성장하기 - 연구원 강의 듣고 소감문 작성'},
+{f:'생명바이오',t:'연계',text:'미래 농업의 이해 및 작물 재배 실습반'},
+{f:'생명바이오',t:'연계',text:'기후변화로 열악한 환경 속에서 살아가는 사람들을 위한 생명공학기술 보고서'},
+{f:'생명바이오',t:'연계',text:'미생물-광 나노입자 인공광합성 시스템 탐구 후 발표'},
+{f:'생명바이오',t:'연계',text:'생명공학기술을 이용한 식물 농업의 장점과 미래에 대한 탐구'},
+{f:'생명바이오',t:'심화',text:'바이오 산업에 메타버스의 활용가능성 확인하고 가상공간 체험 후 직접 가상공간 제작'},
+{f:'생명바이오',t:'심화',text:'크리스퍼 유전자 가위와 인공회로를 이용한 질병의 진단과 치료 방법에 대해 조사 후 보고서'},
+{f:'금융',t:'핵심',text:'금리 변동이 소비자 신용에 미치는 영향 탐구'},
+{f:'금융',t:'핵심',text:'1인 가구 증가가 금융 활동에 미치는 영향 조사'},
+{f:'금융',t:'핵심',text:'금리와 인플레이션의 상호작용 연구'},
+{f:'금융',t:'핵심',text:'양적 긴축 정책과 금리의 관계 연구'},
+{f:'금융',t:'핵심',text:'한국경제와 물가, 금리의 연관 관계도 분석'},
+{f:'금융',t:'핵심',text:'상가 공실 문제에 관한 원인 분석 - 임대료와 금리의 관계를 중심으로'},
+{f:'금융',t:'핵심',text:'중앙은행의 금리 결정과 경제 성장의 관계 탐구'},
+{f:'금융',t:'핵심',text:'금리와 부동산 시장의 상관 관계 탐구'},
+{f:'금융',t:'핵심',text:'금리 인상이 은행의 수익성에 미치는 영향'},
+{f:'금융',t:'핵심',text:'미국 금리 인상의 영향과 국내 기업의 향방 탐색'},
+{f:'금융',t:'핵심',text:'ROE를 통한 실제 기업 재무 비율 분석 결과 파악'},
+{f:'금융',t:'핵심',text:'기업의 회계 투명성과 성과 사이의 관계 탐구'},
+{f:'금융',t:'핵심',text:'세계 각국의 금리 정책 비교'},
+{f:'금융',t:'핵심',text:'글로벌 무역과 금융위기 관계 분석'},
+{f:'금융',t:'핵심',text:'환율, 환율 변동, 외환보유고, 현물환, 선물환에 대해 이해'},
+{f:'금융',t:'핵심',text:'국제 수지의 이해, 경상 수지 및 여행수지 적자의 원인 밝힘'},
+{f:'금융',t:'핵심',text:'중국 핀테크 관련 중국의 선진적 금융사회 주제 탐구 활동'},
+{f:'금융',t:'핵심',text:'주식과 채권의 성과 비교'},
+{f:'금융',t:'핵심',text:'공모주에 대해 기초 조사'},
+{f:'금융',t:'핵심',text:'주가 산정 방식과 주식의 가치 평가 주제 탐구 활동'},
+{f:'금융',t:'핵심',text:'파생상품이 무엇인지 조사하고 파생상품의 역사를 탐구'},
+{f:'금융',t:'핵심',text:'파생상품의 역할과 위험성 탐구'},
+{f:'금융',t:'핵심',text:'공매도 금지를 주제로 다양한 견해를 정리하고 자신의 생각 발표'},
+{f:'금융',t:'핵심',text:'지속가능한 투자와 그린 금융 상품의 출현'},
+{f:'금융',t:'핵심',text:'2008 글로벌 금융위기의 원인 분석'},
+{f:'금융',t:'핵심',text:'금융위기 대응을 위한 정책 분석'},
+{f:'금융',t:'핵심',text:'금융위기가 주택시장에 미친 영향 탐구'},
+{f:'금융',t:'핵심',text:'포스트 코로나 시대의 금융에 대해 조사'},
+{f:'금융',t:'핵심',text:'글로벌 인플레이션 현상에 대한 프로젝트'},
+{f:'금융',t:'핵심',text:'버블 경제 - 금융에서도 보이지 않는 손의 원리가 적용되는지 탐구'},
+{f:'금융',t:'핵심',text:'경제 대공황과 금융의 관계에 대한 탐구'},
+{f:'금융',t:'연계',text:'가상 화폐 분야인 스테이블코인에 대해 조사하여 발표'},
+{f:'금융',t:'연계',text:'비트코인에 대한 역사적 고찰'},
+{f:'금융',t:'연계',text:'통일 한반도 가상 국가 금융연구원 활동'},
+{f:'금융',t:'연계',text:'자본주의의 기원과 기능 탐구 - 금융자본주의를 중심으로'},
+{f:'금융',t:'심화',text:'모의주식 및 창업 활동 - 투자 지식 나누기 부스 운영'},
+{f:'금융',t:'심화',text:'모의 주식 투자'},
+{f:'금융',t:'심화',text:'장기 프로젝트로 본교 학생의 용돈 편차에 대해 분석'},
+{f:'금융',t:'심화',text:'사회적 약자를 위한 봉사 적금 상품 제안 기획'},
+{f:'금융',t:'심화',text:'증권시장에서의 동조화 현상 사례 조사'},
+{f:'경제',t:'핵심',text:'구매 행동 과정에서 일어나는 소비자의 학습'},
+{f:'경제',t:'핵심',text:'개인 신용카드 데이터로 분석한 품목별 소비 현황과 시사점 조사'},
+{f:'경제',t:'핵심',text:'친환경 소비를 위한 제안자 되기'},
+{f:'경제',t:'핵심',text:'공정무역 제품 소비를 자기결정이론을 바탕으로 분석하여 개별탐구보고서 작성'},
+{f:'경제',t:'핵심',text:'코로나로 인해 변화한 사람들의 소비패턴 탐구'},
+{f:'경제',t:'핵심',text:'미래를 위한 지속 가능한 소비 탐구'},
+{f:'경제',t:'핵심',text:'고객의 소비 패턴 분석, 상품 추천 알고리즘 경영 전략 속 수학 활용 방안'},
+{f:'경제',t:'핵심',text:'환율 변동에 따른 원자재 가격 변화 분석'},
+{f:'경제',t:'핵심',text:'코로나-19 이후 환경 이슈 무역 분쟁 가능성'},
+{f:'경제',t:'핵심',text:'다국적 기업의 노동력 착취를 주제로 사회적 윤리를 고찰'},
+{f:'경제',t:'핵심',text:'우리나라 노동시장의 이중구조를 탐구'},
+{f:'경제',t:'핵심',text:'양질의 일자리 확대와 기업 양극화 해소방안'},
+{f:'경제',t:'연계',text:'기본 소득제 도입 학급 토론 활동'},
+{f:'경제',t:'연계',text:'그린 뉴딜 탐구'},
+{f:'경제',t:'연계',text:'순환 경제 시스템 연구'},
+{f:'경제',t:'연계',text:'IMF, 2008 금융위기, 주식열풍 등 주제로 칼럼을 작성하여 게시'},
+{f:'경제',t:'연계',text:'규제 샌드박스의 장단점 및 개선점을 탐구'},
+{f:'경제',t:'연계',text:'고령화 시대 노년층 근로자들에게 효과적인 조직 참여 제공하기 위한 방안'},
+{f:'경제',t:'연계',text:'O2O 공유경제와 관련된 사업계획서 초안 기술'},
+{f:'경제',t:'연계',text:'인구 감소와 경제 성장 보고서 작성'},
+{f:'경제',t:'연계',text:'최저가격제 담합 탐구'},
+{f:'경제',t:'공동',text:'국제 금융과 경제반'},
+{f:'경제',t:'공동',text:'일상 생활 속의 회계반'},
+{f:'경제',t:'공동',text:'세금이 뭐니반 - 사업자등록 신청서, 세금계산서, 근로소득 금액 계산'},
+{f:'경제',t:'공동',text:'회계의 원리반'},
+{f:'경제',t:'공동',text:'신문으로 본 경제 금융반'},
+{f:'경제',t:'공동',text:'국제통상 이해반'},
+{f:'경제',t:'심화',text:'미닝아웃 세대와 대체육 시장을 주제로 보고서 작성 후 생태학, 컴퓨터 공학 전공 친구들과 융합탐구'},
+{f:'경제',t:'심화',text:'공유가치의 원칙과 노직의 자유지상주의적 정의관에 대해 비판'},
+{f:'경영',t:'핵심',text:'기업 재무제표 분석 보고서 작성'},
+{f:'경영',t:'핵심',text:'기업 퇴사율의 증가 문제, 어떻게 직원들에게 연결감을 느끼게 할 것인가 - 자원기반관점 탐구'},
+{f:'경영',t:'핵심',text:'성공기업과 실패기업 분석활동'},
+{f:'경영',t:'핵심',text:'ESG경영, 기업의 사회적 책임'},
+{f:'경영',t:'핵심',text:'기업지배구조 개선의 필요성'},
+{f:'경영',t:'핵심',text:'해외 진출 기업의 분쟁 사례 - 카자흐스탄 사례'},
+{f:'경영',t:'핵심',text:'기업의 사회적 책임 실현 보고서 작성'},
+{f:'경영',t:'핵심',text:'핀테크 기업, 신성장 기업 조사'},
+{f:'경영',t:'핵심',text:'식품기업의 현황과 미래 - 푸드테크를 중심으로 보고서 작성'},
+{f:'경영',t:'핵심',text:'메타버스로 인한 경영 패러다임의 변화를 탐구'},
+{f:'경영',t:'핵심',text:'M&A와 경영체제 연구'},
+{f:'경영',t:'핵심',text:'친환경적 경영 연구'},
+{f:'경영',t:'핵심',text:'소유경영체제와 전문경영체제 시행 기업 비교'},
+{f:'경영',t:'핵심',text:'성장하는 메타버스 시장과 ESG 경영'},
+{f:'경영',t:'핵심',text:'ESG 경영과 투자, 구독 경제의 정의 및 기업 측면의 이점을 탐구하고 발표'},
+{f:'경영',t:'핵심',text:'ESG 경영체계를 활용한 기업의 동물 가죽 관련 윤리적 쟁점 에세이 쓰기'},
+{f:'경영',t:'핵심',text:'공정무역과 ESG 경영의 관계와 대안을 주제로 심화 보고서 작성'},
+{f:'경영',t:'핵심',text:'ESG경영을 도입한 푸드 리퍼브 관련 기업 조사'},
+{f:'경영',t:'연계',text:'모의 창업 활동'},
+{f:'경영',t:'연계',text:'사업계획서 작성 활동에서 구독형 문화서비스 플랫폼 사업 제안'},
+{f:'경영',t:'연계',text:'창업 아이템 프로젝트 활동으로 휴대용 쿨팩을 선정하여 SWOT 분석을 통한 연구계획서 작성'},
+{f:'경영',t:'연계',text:'바이럴 마케팅 탐구'},
+{f:'경영',t:'연계',text:'그린 워싱과 그린 마케팅 탐구'},
+{f:'경영',t:'연계',text:'지역 마케팅 성공 사례 탐구를 통한 우리 지역 브랜딩 활동'},
+{f:'경영',t:'연계',text:'베블런 효과와 소비자, 기업의 마케팅 간의 상관관계 탐구 및 발표'},
+{f:'경영',t:'연계',text:'수요와 공급 사이의 균형가격 조사해 효과적인 마케팅 전략 수행과 이윤 창출을 위한 방안'},
+{f:'경영',t:'연계',text:'기업의 한정판 마케팅 전략과 소비자 소비심리 관계에 대한 양적연구'},
+{f:'경영',t:'연계',text:'허위 광고의 문제점을 주제로 한 더 나은 세상 프로젝트 활동'},
+{f:'경영',t:'연계',text:'소셜 미디어의 뒷광고를 주제로 더 나은 세상 프로젝트 활동'},
+{f:'경영',t:'심화',text:'공공정책제안대회 최우수 - 대회 참석'},
+{f:'경영',t:'심화',text:'메타버스의 두 얼굴, 메타버스의 산업동향을 주제로 보고서 작성'},
+{f:'경영',t:'심화',text:'학생들의 재테크 인식을 주제로 설문조사 및 국가통계포털 자료를 활용하여 데이터 분석'},
+{f:'경영',t:'심화',text:'ESG 경영 중 G(지배구조) 분야에서의 취약점과 해결 방안 탐구 활동 및 캠페인 진행'}
+];
+
+(function(){document.getElementById('sbj-total').textContent=SBJ_DATA.length;})();
+
+function sbjHL(text,kw){
+  if(!kw)return text;
+  return text.replace(new RegExp('('+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
+}
+function sbjSetF(el,f){
+  document.querySelectorAll('.sbj-chip').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active'); SBJ_F=f; sbjRender();
+}
+function sbjSetT(el,t){
+  document.querySelectorAll('.sbj-ttype').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active'); SBJ_T=t; sbjRender();
+}
+function sbjRender(){
+  var el=document.getElementById('sbj-kw');
+  var kw=el?el.value.trim():'';
+  var q=kw.toLowerCase();
+  var filtered=SBJ_DATA.filter(function(d){
+    if(SBJ_F!=='전체'&&d.f!==SBJ_F)return false;
+    if(SBJ_T!=='전체'&&d.t!==SBJ_T)return false;
+    if(q&&d.text.toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+  var cntEl=document.getElementById('sbj-cnt');
+  if(cntEl)cntEl.textContent=filtered.length;
+  var wrap=document.getElementById('sbj-results');
+  if(!wrap)return;
+  if(filtered.length===0){wrap.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:50px;color:#6b7290"><div style="font-size:32px;margin-bottom:8px">🔍</div><div>검색 결과가 없습니다</div></div>';return;}
+  var html='';
+  filtered.forEach(function(d){
+    html+='<div class="sbj-card" data-sf="'+d.f+'"><div class="sbj-card-bar"></div>';
+    html+='<div style="display:flex;gap:5px;flex-wrap:wrap"><span class="sbj-tag-f">'+(SBJ_FL[d.f]||d.f)+'</span><span class="sbj-tag-t '+d.t+'">'+(SBJ_TL[d.t]||d.t)+'</span></div>';
+    html+='<div class="sbj-text">'+sbjHL(d.text,kw)+'</div></div>';
+  });
+  wrap.innerHTML=html;
 }
 
 </script>
