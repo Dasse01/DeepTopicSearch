@@ -54,7 +54,7 @@ body.locked>*:not(#lockScreen){display:none!important}
 .main-tab.on{color:#fff;border-bottom-color:#ff6b35}
 
 /* 패널들 */
-.panel{display:none;flex:1;flex-direction:column;overflow:hidden}
+.panel{display:none;flex:1;flex-direction:column;overflow:hidden}#panel-sbj{display:none;flex-direction:column;overflow-y:auto!important;overflow-x:hidden!important}#panel-sbj.on{display:block!important}
 .panel.on{display:flex}
 
 /* ── 검색 패널 ── */
@@ -979,7 +979,7 @@ body.locked>*:not(#lockScreen){display:none!important}
   </div>
 </div>
 
-<div class="panel" id="panel-sbj" style="background:#0f1117;height:100%;overflow-y:auto;box-sizing:border-box">
+<div class="panel" id="panel-sbj" style="background:#0f1117">
   <div style="background:linear-gradient(135deg,#1a1d27,#0f1117);border-bottom:1px solid #2d3249;padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
     <span style="font-size:22px">📚</span>
     <div>
@@ -4131,8 +4131,7 @@ function sbjRender(){
   var cntEl=document.getElementById('sbj-cnt');
   if(cntEl)cntEl.textContent=filtered.length;
   var wrap=document.getElementById('sbj-results');
-  if(!wrap){console.warn('sbj-results not found');return;}
-  wrap.style.display='grid';
+  if(!wrap)return;
   if(filtered.length===0){wrap.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:50px;color:#6b7290"><div style="font-size:32px;margin-bottom:8px">🔍</div><div>검색 결과가 없습니다</div></div>';return;}
   var html='';
   filtered.forEach(function(d){
