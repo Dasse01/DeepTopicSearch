@@ -54,7 +54,9 @@ body.locked>*:not(#lockScreen){display:none!important}
 .main-tab.on{color:#fff;border-bottom-color:#ff6b35}
 
 /* 패널들 */
-.panel{display:none;flex:1;flex-direction:column;overflow:hidden}#panel-sbj{display:none;flex-direction:column;overflow-y:auto!important;overflow-x:hidden!important}#panel-sbj.on{display:block!important}
+.panel{display:none;flex:1;flex-direction:column;overflow:hidden}
+#panel-sbj{overflow-y:auto!important;overflow-x:hidden!important}
+#panel-sbj.on{display:block!important}
 .panel.on{display:flex}
 
 /* ── 검색 패널 ── */
@@ -493,6 +495,10 @@ body.locked>*:not(#lockScreen){display:none!important}
 .lock-input::placeholder{color:rgba(255,255,255,.28);letter-spacing:.04em;font-family:'Malgun Gothic',sans-serif;font-size:13px}
 .lock-input:focus{border-color:#E07B1A;background:rgba(255,255,255,.13)}
 .lock-input.error{border-color:#f44;animation:lockShake .35s ease}
+.lock-status-msg{font-size:13px;font-weight:600;text-align:center;padding:8px 12px;border-radius:8px;margin-top:6px;display:none;color:#fff}
+.lock-status-msg.warn{display:block;color:#ffe57f;background:rgba(255,229,127,.12);border:1px solid rgba(255,229,127,.25)}
+.lock-status-msg.ok{display:block;color:#a5d6a7;background:rgba(165,214,167,.12);border:1px solid rgba(165,214,167,.25)}
+.lock-status-msg.err{display:block;color:#ef9a9a;background:rgba(239,154,154,.12);border:1px solid rgba(239,154,154,.25)}
 .lock-status-msg{font-size:13px;font-weight:600;text-align:center;padding:8px 12px;border-radius:8px;margin-top:6px;display:none;color:#fff}
 .lock-status-msg.warn{display:block;color:#ffe57f;background:rgba(255,229,127,.12);border:1px solid rgba(255,229,127,.25)}
 .lock-status-msg.ok{display:block;color:#a5d6a7;background:rgba(165,214,167,.12);border:1px solid rgba(165,214,167,.25)}
@@ -979,7 +985,7 @@ body.locked>*:not(#lockScreen){display:none!important}
   </div>
 </div>
 
-<div class="panel" id="panel-sbj" style="background:#0f1117">
+<div class="panel" id="panel-sbj" style="background:#0f1117;height:100%;overflow-y:auto;box-sizing:border-box">
   <div style="background:linear-gradient(135deg,#1a1d27,#0f1117);border-bottom:1px solid #2d3249;padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
     <span style="font-size:22px">📚</span>
     <div>
@@ -4142,6 +4148,86 @@ function sbjRender(){
   wrap.innerHTML=html;
 }
 
+</script>
+</body>
+</html>
+<script>
+(function(){
+  var a='studyjinrojinhak';var b='gmail';var c='com';
+  var em=a+'@'+b+'.'+c;var ml='mail'+'to:'+em;
+  var l1=document.getElementById('mailLink1');
+  var l2=document.getElementById('mailLink2');
+  var t=document.getElementById('contactMailText');
+  if(l1)l1.href=ml;if(l2)l2.href=ml;if(t)t.textContent=em;
+})();
+</script>
+<script>
+/* ════════════════════════════════════════
+   데이터 보호 스크립트 v4 - 맥에듀테크
+════════════════════════════════════════ */
+(function(){
+  /* 1. 우클릭 차단 */
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+  /* 2. 키보드 단축키 차단 */
+  document.addEventListener('keydown',function(e){
+    var k=e.key||'';
+    if(k==='F12'){e.preventDefault();return false;}
+    if(e.ctrlKey&&e.shiftKey&&['i','I','j','J','c','C','k','K'].indexOf(k)>=0){e.preventDefault();return false;}
+    if(e.ctrlKey&&(k==='u'||k==='U'||k==='s'||k==='S')){e.preventDefault();return false;}
+    if(e.ctrlKey&&(k==='a'||k==='A')){
+      var ae=document.activeElement;
+      if(!ae||(ae.tagName!=='INPUT'&&ae.tagName!=='TEXTAREA')){e.preventDefault();return false;}
+    }
+    if(e.ctrlKey&&(k==='c'||k==='C')){
+      var ae2=document.activeElement;
+      if(!ae2||(ae2.tagName!=='INPUT'&&ae2.tagName!=='TEXTAREA')){e.preventDefault();return false;}
+    }
+  });
+  /* 3. 텍스트 선택 차단 */
+  document.addEventListener('selectstart',function(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+    e.preventDefault();return false;
+  });
+  /* 4. 복사/잘라내기 차단 */
+  document.addEventListener('copy',function(e){e.preventDefault();return false;});
+  document.addEventListener('cut',function(e){e.preventDefault();return false;});
+  /* 5. 드래그 차단 */
+  document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+  /* 6. CSS user-select 차단 */
+  var st=document.createElement('style');
+  st.textContent='*{-webkit-user-select:none!important;-moz-user-select:none!important;user-select:none!important;-webkit-touch-callout:none!important}input,textarea{-webkit-user-select:text!important;user-select:text!important}';
+  document.head.appendChild(st);
+  /* 7. RAF 루프 - 드래그 선택 실시간 해제 */
+  function clearSel(){
+    var sel=window.getSelection?window.getSelection():null;
+    if(sel&&sel.rangeCount){
+      var ae=document.activeElement;
+      if(!ae||(ae.tagName!=='INPUT'&&ae.tagName!=='TEXTAREA'))sel.removeAllRanges();
+    }
+    requestAnimationFrame(clearSel);
+  }
+  requestAnimationFrame(clearSel);
+  /* 8. DevTools 열림 감지 */
+  var _devOpen=false;
+  function detectDevTools(){
+    var isOpen=(window.outerWidth-window.innerWidth)>160||(window.outerHeight-window.innerHeight)>160;
+    if(isOpen&&!_devOpen){
+      _devOpen=true;
+      document.body.style.filter='blur(8px)';
+      var w=document.getElementById('_dw');
+      if(!w){
+        w=document.createElement('div');w.id='_dw';
+        w.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;background:rgba(13,27,62,.97);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;font-family:"Malgun Gothic",sans-serif;';
+        w.innerHTML='<div style="font-size:48px">🔒</div><div style="color:#fff;font-size:22px;font-weight:700">개발자 도구 사용 불가</div><div style="color:rgba(255,255,255,.6);font-size:14px">개발자 도구를 닫으면 정상 이용 가능합니다.</div>';
+        document.body.appendChild(w);
+      } else{w.style.display='flex';}
+    } else if(!isOpen&&_devOpen){
+      _devOpen=false;document.body.style.filter='';
+      var w2=document.getElementById('_dw');if(w2)w2.style.display='none';
+    }
+  }
+  setInterval(detectDevTools,800);
+})();
 </script>
 </body>
 </html>
